@@ -10,7 +10,7 @@ const dbConnect = () => {
         useNewUrlParser: true,
         useUnifiedTopology: true,
        //useFindAndModify: false,
-      //  useCreateIndex: true,
+        //useCreateIndex: true,
         
     }).then(con => console.log('Connected to the local database'));
 
