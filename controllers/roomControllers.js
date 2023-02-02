@@ -1,86 +1,77 @@
 import Room from '../models/room'
+import ErrorHandler from '@/utils/errorHandler'
+import catchAsyncErrors from '@/middlewares/catchAsyncErrors'
+import APIFeatures from '@/utils/apiFeatures'
 
 //Get all Rooms => /api/rooms
-const allRooms = async (req, res) => {
-  try {
-    const rooms = await Room.find()
+const allRooms = catchAsyncErrors(async (req, res) => {
+  const resPerPage = 4
+  const roomsCount = await Room.countDocuments()
 
-    res.status(200).json({
-      success: true,
-      count: rooms.length,
-      rooms,
-    })
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      error: error.message,
-    })
-  }
-}
+  const apiFeatures = new APIFeatures(Room.find(), req.query).search().find()
+
+  let rooms = await apiFeatures.query
+  let filteredRoomsCount = rooms.length
+  apiFeatures.pagination(resPerPage)
+  rooms = await apiFeatures.query
+
+  res.status(200).json({
+    success: true,
+    roomsCount,
+    resPerPage,
+    filteredRoomsCount,
+    rooms,
+  })
+})
 // create new room => /api/rooms
 
-const newRoom = async (req, res) => {
-  try {
-    const room = await Room.create(req.body)
-    res.status(200).json({
-      success: true,
-      room,
-    })
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      error: error.message,
-    })
-  }
-}
+const newRoom = catchAsyncErrors(async (req, res) => {
+  const room = await Room.create(req.body)
+  res.status(200).json({
+    success: true,
+    room,
+  })
+})
 // Get room details => /api/rooms/:id
 
-const getSingleRoom = async (req, res) => {
-  try {
-    const room = await Room.findById(req.query.id)
-    if (!room) {
-      return res.status(404).json({
-        success: false,
-        error: 'اتاق با این شناسه یافت نشد ',
-      })
-    }
-    res.status(200).json({
-      success: true,
-      room,
-    })
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      error: error.message,
-    })
+const getSingleRoom = catchAsyncErrors(async (req, res, next) => {
+  const room = await Room.findById(req.query.id)
+  if (!room) {
+    return next(new ErrorHandler('اتاق با این شناسه یافت نشد', 404))
   }
-}
+  res.status(200).json({
+    success: true,
+    room,
+  })
+})
 // Update selected room  => /api/rooms/:id
 
-const updateRoom = async (req, res) => {
-  try {
-    let room = await Room.findById(req.query.id)
-    if (!room) {
-      return res.status(404).json({
-        success: false,
-        error: 'اتاق با این شناسه یافت نشد ',
-      })
-    }
-    room = await Room.findByIdAndUpdate(req.query.id, req.body, {
-      new: true,
-      runValidators: true,
-      useFindAndModify: false,
-    })
-    res.status(200).json({
-        success: true,
-        room,
-      })
-
-  } catch (error) {
-    res.status(400).json({
-      success: false,
-      error: error.message,
-    })
+const updateRoom = catchAsyncErrors(async (req, res) => {
+  let room = await Room.findById(req.query.id)
+  if (!room) {
+    return next(new ErrorHandler('اتاق با این شناسه یافت نشد', 404))
   }
-}
-export { allRooms, newRoom, getSingleRoom, updateRoom }
+  room = await Room.findByIdAndUpdate(req.query.id, req.body, {
+    new: true,
+    runValidators: true,
+    useFindAndModify: false,
+  })
+  res.status(200).json({
+    success: true,
+    room,
+  })
+})
+// Delete selected room  => /api/rooms/:id
+
+const deleteRoom = catchAsyncErrors(async (req, res, next) => {
+  let room = await Room.findById(req.query.id)
+  if (!room) {
+    return next(new ErrorHandler('اتاق با این شناسه یافت نشد', 404))
+  }
+  await room.remove()
+  res.status(200).json({
+    success: true,
+    message: `Room  id:${req.query.id} deleted successfully.`,
+  })
+})
+export { allRooms, newRoom, getSingleRoom, updateRoom, deleteRoom }

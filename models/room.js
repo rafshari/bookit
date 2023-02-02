@@ -10,6 +10,7 @@ const roomSchema = new mongoose.Schema({
   pricePerNight: {
     type: Number,
     required: [true, 'درج قیمت الزامی است !'],
+    maxLength: [4, 'Room name cannot exceed 4 characters'],
     default: 0.0,
   },
   description: {
@@ -41,11 +42,11 @@ const roomSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  petAllowed: {
+  petsAllowed: {
     type: Boolean,
     default: false,
   },
-  rooCleaning: {
+  roomCleaning: {
     type: Boolean,
     default: false,
   },
@@ -88,9 +89,9 @@ const roomSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
-      rating: {
+      ratings: {
         type: Number,
-        required: true,
+        required: false,
       },
       comment: {
         type: String,
@@ -109,4 +110,4 @@ const roomSchema = new mongoose.Schema({
   },
 })
 
-module.exports = mongoose.model.Rooms || mongoose.model('Room', roomSchema)
+module.exports = mongoose.models.Room || mongoose.model('Room', roomSchema);

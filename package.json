@@ -7,14 +7,18 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "seeder":"node utils/seeder"
+    "seeder": "node utils/seeder"
   },
   "dependencies": {
     "@next/font": "13.1.5",
     "mongoose": "^6.9.0",
     "next": "13.1.5",
     "next-connect": "^0.13.0",
+    "next-redux-wrapper": "^8.1.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "react-toastify": "^9.1.1",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-thunk": "^2.4.2"
   }
 }

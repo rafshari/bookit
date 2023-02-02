@@ -1,5 +1,5 @@
 const Room = require('../models/room')
-const rooms = require('../data/rooms.json')
+const rooms = require('../data/rooms')
 const mongoose = require('mongoose')
 
 mongoose
@@ -9,7 +9,6 @@ mongoose
     //useFindAndModify: false,
     //useCreateIndex: true,
   })
-  .then((con) => console.log('Connected to the local database'))
 
 const seedRooms = async () => {
   try {
@@ -17,8 +16,7 @@ const seedRooms = async () => {
     console.log('Rooms are deleted.')
     await Room.insertMany(rooms)
     console.log('rooms are added.')
-1
-
+    
   } catch (error) {
     console.log(error.message)
     process.exit()
