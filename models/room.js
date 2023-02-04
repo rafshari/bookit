@@ -1,34 +1,33 @@
-const mongoose = require('mongoose')
+import mongoose  from 'mongoose'
 
 const roomSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'درج عنوان الزامی است !'],
+    required: [true, 'Please enter room name'],
     trim: true,
-    maxLength: [100, 'نباید تعداد حروف از 100 حرف بیشتر باشد'],
+    maxLength: [100, 'Room name cannot exceed 100 characters'],
   },
   pricePerNight: {
     type: Number,
-    required: [true, 'درج قیمت الزامی است !'],
+    required: [true, 'Please enter room price per night'],
     maxLength: [4, 'Room name cannot exceed 4 characters'],
     default: 0.0,
   },
   description: {
     type: String,
-    required: [true, 'درج توضیحات الزامی است !'],
+    required: [true, 'Please enter room description'],
   },
   address: {
     type: String,
-    required: [true, 'درج آدرس الزامی است !'],
-    maxLength: [500, 'نباید تعداد حروف از 500 حرف بیشتر باشد'],
+    required: [true, 'Please enter room address'],
   },
   guestCapacity: {
     type: Number,
-    required: [true, 'درج حداکثر تعداد مهمان قابل پذیرش الزامی است !'],
+    required: [true, 'Please enter room guest capacity'],
   },
   numOfBeds: {
     type: Number,
-    required: [true, 'درج  تعداد تخت موجود الزامی است !'],
+    required: [true, 'Please enter number of beds in room'],
   },
   internet: {
     type: Boolean,
@@ -72,10 +71,10 @@ const roomSchema = new mongoose.Schema({
   ],
   category: {
     type: String,
-    required: [true, 'لطفا دسته بندی را وارد کنید'],
+    required: [true, 'Please enter room category'],
     enum: {
       values: ['King', 'Single', 'Twins'],
-      message: 'لطفا یک دسته بندی درست انتخاب فرمایید',
+      message: 'Please select correct category for room',
     },
   },
   reviews: [
@@ -89,9 +88,9 @@ const roomSchema = new mongoose.Schema({
         type: String,
         required: true,
       },
-      ratings: {
+      rating: {
         type: Number,
-        required: false,
+        required: true,
       },
       comment: {
         type: String,
@@ -110,4 +109,4 @@ const roomSchema = new mongoose.Schema({
   },
 })
 
-module.exports = mongoose.models.Room || mongoose.model('Room', roomSchema)
+export default mongoose.models.Room || mongoose.model('Room', roomSchema)

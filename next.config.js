@@ -8,9 +8,9 @@ module.exports = {
 
       STRIPE_WEBHOOK_SECRET: '',
 
-      CLOUDINARY_CLOUD_NAME: '',
-      CLOUDINARY_API_KEY: '',
-      CLOUDINARY_API_SECRET: '',
+      CLOUDINARY_CLOUD_NAME: 'dxb4gek9t',
+      CLOUDINARY_API_KEY: '517861677599238',
+      CLOUDINARY_API_SECRET: '3f2a8OTskk-3gBKp7S_SX-OAxwQ',
 
       SMTP_HOST: "",
       SMTP_PORT: "",
@@ -22,6 +22,6 @@ module.exports = {
       NEXTAUTH_URL: '',
   },
   images: {
-      domains: ['res.cloudinary.com'],
+      domains: ['a0.muscache.com', 'res.cloudinary.com'],
   },
 }

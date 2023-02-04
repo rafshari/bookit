@@ -13,7 +13,7 @@ const dbConnect = () => {
       //useFindAndModify: false,
       //useCreateIndex: true,
     })
-    .then((con) => console.log('Connected to the local database'))
+    
 }
 
 export default dbConnect
