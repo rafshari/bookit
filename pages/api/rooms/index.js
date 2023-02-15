@@ -1,13 +1,12 @@
 import nc from 'next-connect'
-import { allRooms, newRoom } from '@/controllers/roomControllers'
-import dbConnect from '@/config/dbConnect'
-import onError from '@/middlewares/errors'
+import {getAllRoom} from '@/controllers/roomController'
+import { dbConnect } from '@/config/dbConnect'
+import onError from '@/middlewares/errorMiddleware'
 
 const handler = nc({ onError })
 
-dbConnect()
+dbConnect();
 
-handler.get(allRooms)
-handler.post(newRoom)
+handler.get(getAllRoom)
 
 export default handler

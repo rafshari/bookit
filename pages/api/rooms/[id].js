@@ -3,9 +3,9 @@ import {
   getSingleRoom,
   updateRoom,
   deleteRoom,
-} from '@/controllers/roomControllers'
+} from '@/controllers/roomController'
 import dbConnect from '@/config/dbConnect'
-import onError from '@/middlewares/errors'
+import onError from '@/middlewares/errorMiddleware'
 
 const handler = nc({ onError })
 

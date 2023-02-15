@@ -1,21 +1,17 @@
-import Home from '@/components/Home'
 import Layout from '@/components/layout/Layout'
-import { getRooms } from '@/redux/actions/roomActions'
+import Home from '@/components/Home'
 import { wrapper } from '@/redux/store'
+import { getAllRoom } from '@/redux/actions/roomAction'
 
-export default function Index() {
+export default function HomePage() {
   return (
-    <Layout>
-      <Home />
-    </Layout>
-  )
+      <Layout>
+          <Home />
+      </Layout>
+  );
 }
 
-export const getServerSideProps = wrapper.getServerSideProps(
-  (store) =>
-    async ({ req , query}) => {
-      await store.dispatch(getRooms(req, query.page, query.location))
-    }
-)
-
-
+export const getServerSideProps = wrapper.getServerSideProps((store) => async ({ req, query }) => {
+  const { page, location, guestCapacity, category } = query;
+  await store.dispatch(getAllRoom(req, page, location, guestCapacity, category));
+});

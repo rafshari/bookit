@@ -1,33 +1,33 @@
-import mongoose  from 'mongoose'
+const mongoose = require('mongoose')
 
 const roomSchema = new mongoose.Schema({
   name: {
     type: String,
-    required: [true, 'Please enter room name'],
+    required: [true, "Please enter room name"],
     trim: true,
-    maxLength: [100, 'Room name cannot exceed 100 characters'],
+    maxlength: [100, "Room name cannot exceed 100 character"],
   },
   pricePerNight: {
     type: Number,
-    required: [true, 'Please enter room price per night'],
-    maxLength: [4, 'Room name cannot exceed 4 characters'],
+    required: [true, "Please enter room price"],
+    maxlength: [4, "Room price cannot exceed 4 character"],
     default: 0.0,
   },
   description: {
     type: String,
-    required: [true, 'Please enter room description'],
+    required: [true, "Please enter room description"],
   },
   address: {
     type: String,
-    required: [true, 'Please enter room address'],
+    required: [true, "Please enter room address"],
   },
   guestCapacity: {
     type: Number,
-    required: [true, 'Please enter room guest capacity'],
+    required: [true, "Please enter room capacity"],
   },
   numOfBeds: {
     type: Number,
-    required: [true, 'Please enter number of beds in room'],
+    required: [true, "Please enter number of beds in room"],
   },
   internet: {
     type: Boolean,
@@ -37,7 +37,7 @@ const roomSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  airConditioned: {
+  airCondition: {
     type: Boolean,
     default: false,
   },
@@ -71,18 +71,18 @@ const roomSchema = new mongoose.Schema({
   ],
   category: {
     type: String,
-    required: [true, 'Please enter room category'],
+    required: [true, "Please enter room category"],
     enum: {
-      values: ['King', 'Single', 'Twins'],
-      message: 'Please select correct category for room',
+      values: ["King", "Single", "Twins"],
+      message: "Please select correct category for room",
     },
   },
   reviews: [
     {
       user: {
         type: mongoose.Schema.ObjectId,
-        ref: 'User',
-        required: true,
+        ref: "User",
+        required: false,
       },
       name: {
         type: String,
@@ -100,13 +100,13 @@ const roomSchema = new mongoose.Schema({
   ],
   user: {
     type: mongoose.Schema.ObjectId,
-    ref: 'User',
+    ref: "User",
     required: false,
   },
   createdAt: {
     type: Date,
-    default: Date.now,
+    default: Date.now(),
   },
-})
+});
 
-export default mongoose.models.Room || mongoose.model('Room', roomSchema)
+module.exports = mongoose?.models?.Room || mongoose.model("Room", roomSchema);
