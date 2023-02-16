@@ -1,5 +1,7 @@
 import {
   ALL_ROOM,
+  GET_ROOM,
+  CHECK_USER_CAN_REVIEW,
 
 } from "../constants/roomConstant";
 import axios from "axios";
@@ -33,6 +35,37 @@ export const getAllRoom = (
       dispatch({ type: ALL_ROOM.success, payload: response.data });
     } catch (error) {
       dispatch({ type: ALL_ROOM.failed, payload: error.response.data.message });
+    }
+  };
+};
+
+export const getRoom = (req, id) => {
+  return async (dispatch, getState) => {
+    dispatch({ type: GET_ROOM.pending });
+    try {
+      const { origin } = absoluteURL(req);
+      const response = await axios.get(`${origin}/api/rooms/${id}`);
+      dispatch({ type: GET_ROOM.success, payload: response.data });
+    } catch (error) {
+      dispatch({ type: GET_ROOM.failed, payload: error.response.data.message });
+    }
+  };
+};
+
+export const userCanReviewAction = (roomId) => {
+  return async (dispatch, getState) => {
+    try {
+      dispatch({ type: CHECK_USER_CAN_REVIEW.pending });
+      const { data } = await axios.get(`/api/reviews/checkUserCanReview?roomId=${roomId}`);
+      dispatch({
+        type: CHECK_USER_CAN_REVIEW.success,
+        payload: data.userCanReview,
+      });
+    } catch (error) {
+      dispatch({
+        type: CHECK_USER_CAN_REVIEW.failed,
+        payload: error.response.data.message,
+      });
     }
   };
 };

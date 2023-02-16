@@ -1,11 +1,12 @@
 import mongoose from 'mongoose'
 
 const dbConnect = () => {
-  if (mongoose.connection.readyState  >= 1) {
+  if (mongoose.connection.readyState >= 1) {
     return
   }
 
   mongoose
+    .set('strictQuery', true)
     .connect(process.env.DB_LOCAL_URI, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
@@ -13,8 +14,8 @@ const dbConnect = () => {
       //useCreateIndex: true,
     })
     .then(() => {
-      console.log("Connected to database");
-    });
-};
+      console.log('Connected to database')
+    })
+}
 
-export {dbConnect}
+export { dbConnect }

@@ -3,9 +3,9 @@ const nextConfig = {
   reactStrictMode: false,
   env: {
       DB_LOCAL_URI: 'mongodb://127.0.0.1:27017/bookittest',
-      CLOUDINARY_CLOUD_NAME: 'dxb4gek9t',
-      CLOUDINARY_API_KEY: '517861677599238',
-      CLOUDINARY_APISECRET: '3f2a8OTskk-3gBKp7S_SX-OAxwQ',
+      CLOUDINARY_CLOUD_NAME: 'dmgsaurar',
+      CLOUDINARY_API_KEY: '356812392234265',
+      CLOUDINARY_APISECRET: 'vwq9ExwW-A1qV2vw7cOn9ZC_Z4E',
       SMTP_HOST: 'smtp.mailtrap.io',
       SMTP_PORT: '2525',
       SMTP_USER: '020091f8fd0ca6',
@@ -22,7 +22,6 @@ const nextConfig = {
       domains: ['res.cloudinary.com','images.unsplash.com'],
   },
 };
-
 module.exports = nextConfig;
 
 // mongodb+srv://vaib1343:1343@cluster0.nyght.mongodb.net/?retryWrites=true&w=majority

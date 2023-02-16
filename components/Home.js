@@ -61,11 +61,11 @@ export default function Home() {
             activePage={activePage}
             itemsCountPerPage={resPerPage}
             totalItemsCount={filteredRoomsCount}
+            onChange={handlePagination}
             nextPageText={'Next'}
             prevPageText={'Prev'}
             firstPageText={'First'}
             lastPageText={'Last'}
-            onChange={handlePagination}
             itemClass='page-item'
             linkClass='page-link'
           />

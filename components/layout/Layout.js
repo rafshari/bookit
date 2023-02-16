@@ -1,10 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
-
 import Header from './Header'
 import Footer from './Footer'
-import { ToastContainer } from 'react-toastify'
-import 'react-toastify/dist/ReactToastify.css'
 
 const Layout = ({ children, title = 'رزرو بهترین هتل ها برای تعطیلات' }) => {
   return (
@@ -16,7 +13,6 @@ const Layout = ({ children, title = 'رزرو بهترین هتل ها برای 
       </Head>
 
       <Header />
-      <ToastContainer position='bottom-right' />
       {children}
       <Footer />
     </>
