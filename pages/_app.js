@@ -1,16 +1,18 @@
-import '../styles/globals.css';
+import '../styles/globals.css'
 import { wrapper } from '../redux/store'
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { SessionProvider } from 'next-auth/react'
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
-      <>
-              <Component {...pageProps} />;
-              <ToastContainer position='bottom-right' />
-      </>
-  );
+    <>
+      <SessionProvider session={session}>
+        <Component {...pageProps} />;
+        <ToastContainer position='bottom-right' />
+      </SessionProvider>
+    </>
+  )
 }
 
-export default wrapper.withRedux(MyApp);
+export default wrapper.withRedux(MyApp)
