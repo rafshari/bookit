@@ -5,9 +5,10 @@ import { toast } from 'react-toastify';
 import { getUserDetails, updateUserDetail } from 'redux/actions/authAction';
 import { UPDATE_USER } from 'redux/constants/authConstant';
 
-const Profile =  () =>  {
+export default function Profile ()  {
     const dispatch = useDispatch();
     const { user, updateUser, loader, error } = useSelector((state) => state.user);
+    
     const [loading, setLoading] = useState(false);
     const [userData, setUserData] = useState({
         name: '',
@@ -115,4 +116,3 @@ const Profile =  () =>  {
     );
 };
 
-export default Profile

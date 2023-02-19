@@ -1,6 +1,9 @@
 import {
   REGISTER_USER,
   GET_USER,
+  UPDATE_USER,
+  RESET_PASSWORD,
+  FORGOT_PASSWORD,
 
 } from 'redux/constants/authConstant'
 
@@ -57,18 +60,62 @@ const authReducer = (state = intialState, action) => {
       newState.loader = newState.loader.filter((el) => el !== GET_USER.pending)
       return newState
     }
+    case UPDATE_USER.pending: {
+      newState.loader = [...newState.loader, UPDATE_USER.pending];
+      newState.error = '';
+      return newState;
+  }
 
+  case UPDATE_USER.success: {
+      newState.loader = newState.loader.filter((el) => el !== UPDATE_USER.pending);
+      newState.updateUser = true;
+      return newState;
+  }
 
+  case UPDATE_USER.failed: {
+      newState.loader = newState.loader.filter((el) => el !== UPDATE_USER.pending);
+      newState.error = action.payload;
+      return newState;
+  }
+  case FORGOT_PASSWORD.pending: {
+    newState.loader = [...newState.loader, FORGOT_PASSWORD.pending];
+    newState.error = '';
+    newState.forgotPasswordMessage = ''
+    return newState;
+}
 
-    
+case FORGOT_PASSWORD.success: {
+    newState.loader = newState.loader.filter((el) => el !== FORGOT_PASSWORD.pending);
+    newState.forgotPasswordMessage = action.payload;
+    return newState;
+}
 
+case FORGOT_PASSWORD.failed: {
+    newState.loader = newState.loader.filter((el) => el !== FORGOT_PASSWORD.pending);
+    newState.error = action.payload;
+    return newState;
+}
 
+case RESET_PASSWORD.pending: {
+    newState.loader = [...newState.loader, RESET_PASSWORD.pending];
+    newState.error = '';
+    newState.resetPasswordMessage = '';
+    return newState;
+}
 
+case RESET_PASSWORD.success: {
+    newState.loader = newState.loader.filter((el) => el !== RESET_PASSWORD.pending);
+    newState.resetPasswordMessage = action.payload;
+    newState.error = '';
+    return newState;
+}
 
+case RESET_PASSWORD.failed: {
+    newState.loader = newState.loader.filter((el) => el !== RESET_PASSWORD.pending);
+    newState.error = action.payload;
+    return newState;
+}
 
- 
-
- 
   }
   return newState
 }

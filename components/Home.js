@@ -42,7 +42,7 @@ const Home = () => {
             ? `Stays in ${router.query.location}`
             : 'All Rooms'}
         </h2>
-        <Link href={'/search'} className='ml-2 back-to-search'>
+        <Link href='/search' className='ml-2 back-to-search'>
           <i className='fa fa-arrow-left'></i> Back to Search
         </Link>
         <div className='row'>

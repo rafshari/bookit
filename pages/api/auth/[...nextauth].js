@@ -5,19 +5,23 @@ import User from 'models/user';
 import bcryptjs from 'bcryptjs';
 
 
-export default NextAuth({
+export const authOptions = {
     session: {
         strategy: 'jwt',
     },
     providers: [
         CredentialsProvider({
-            async authorize(credentials) {
+            name: "BookitCredentials",
+            credentials: {
+                email: { label: "email", type: "text", placeholder: "doe@gmail.com" },
+                password: { label: "password", type: "password" }
+              },
+            async authorize(credentials, req) {
                 dbConnect();
                 const { email, password } = credentials;
                 if (!email || !password) {
                     throw new Error('Please enter credentials');
                 }
-
                 const user = await User.findOne({ email }).select('+password');
                 if (!user) {
                     throw new Error('Invalid credentials');
@@ -27,19 +31,24 @@ export default NextAuth({
                 if (!isPasswordMatched) {
                     throw new Error('Invalid credentials');
                 }
-                return Promise.resolve(user);
+                return user
             },
         }),
     ],
     callbacks: {
-        jwt: async ({ user, token }) => {
-            user && (token.user = user);
-            return Promise.resolve(token);
+        async jwt({ token, user }) {
+            user && (token.user = user)
+           token.id = user.id
+           return token
         },
-        session: async ({ session, token }) => {
-            session.user = token.user;
-            return Promise.resolve(session);
+        async session({ session, token }){
+            session.user = token.user
+            return session
         },
     },
     secret: process.env.NEXTAUTH_SECRET
-});
+}
+
+
+export default NextAuth(authOptions)
+
