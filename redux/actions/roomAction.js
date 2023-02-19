@@ -1,8 +1,7 @@
 import {
   ALL_ROOM,
-  GET_ROOM,
   CHECK_USER_CAN_REVIEW,
-
+  GET_ROOM,
 } from "../constants/roomConstant";
 import axios from "axios";
 import absoluteURL from "next-absolute-url";
@@ -69,4 +68,3 @@ export const userCanReviewAction = (roomId) => {
     }
   };
 };
-

@@ -12,6 +12,6 @@ const handler = nc({
     onError,
 });
 
-handler.use(isAuthenticatedUser).get(currentUser)
+handler.use(isAuthenticatedUser).get(currentUser);
 
 export default handler;

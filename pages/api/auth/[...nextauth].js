@@ -1,27 +1,23 @@
- import NextAuth from 'next-auth';
+import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
 import { dbConnect } from 'config/dbConnect';
 import User from 'models/user';
 import bcryptjs from 'bcryptjs';
 
 
-export const authOptions = {
+export default NextAuth({
     session: {
         strategy: 'jwt',
     },
     providers: [
         CredentialsProvider({
-            name: "BookitCredentials",
-            credentials: {
-                email: { label: "email", type: "text", placeholder: "doe@gmail.com" },
-                password: { label: "password", type: "password" }
-              },
-            async authorize(credentials, req) {
+            async authorize(credentials) {
                 dbConnect();
                 const { email, password } = credentials;
                 if (!email || !password) {
                     throw new Error('Please enter credentials');
                 }
+
                 const user = await User.findOne({ email }).select('+password');
                 if (!user) {
                     throw new Error('Invalid credentials');
@@ -31,24 +27,19 @@ export const authOptions = {
                 if (!isPasswordMatched) {
                     throw new Error('Invalid credentials');
                 }
-                return user
+                return Promise.resolve(user);
             },
         }),
     ],
     callbacks: {
-        async jwt({ token, user }) {
-            user && (token.user = user)
-           token.id = user.id
-           return token
+        jwt: async ({ user, token }) => {
+            user && (token.user = user);
+            return Promise.resolve(token);
         },
-        async session({ session, token }){
-            session.user = token.user
-            return session
+        session: async ({ session, token }) => {
+            session.user = token.user;
+            return Promise.resolve(session);
         },
     },
     secret: process.env.NEXTAUTH_SECRET
-}
-
-
-export default NextAuth(authOptions)
-
+});

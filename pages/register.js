@@ -2,7 +2,7 @@ import Register from 'components/auth/Register';
 import Layout from 'components/layout/Layout';
 import { getSession } from 'next-auth/react';
 
-const RegisterPage = () => {
+export default function RegisterPage() {
     return (
         <>
             <Layout title='Register'>
@@ -26,5 +26,3 @@ export const getServerSideProps = async (context) => {
         props: {},
     };
 };
-
-export default RegisterPage

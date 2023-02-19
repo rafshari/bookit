@@ -7,22 +7,20 @@ import absoluteUrl from 'next-absolute-url';
 import sendEmail from 'utils/sendEmail';
 import crypto from 'crypto';
 
-
-//setup cloudinary config 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_APISECRET,
 });
 
-// register user => api/auth/register
 export const registerUser = catchAsyncError(async (req, res) => {
-    let result = await cloudinary.v2.uploader.upload(req.body.avatar, {
+    const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
         folder: 'bookit/avatars',
         width: '150',
         crop: 'scale',
     });
-    const { name, email, password  } = req.body;
+
+    const { email, password, name } = req.body;
 
     const user = await User.create({
         name,
@@ -33,11 +31,9 @@ export const registerUser = catchAsyncError(async (req, res) => {
             url: result.url,
         },
     });
-       
-  res.status(200).json({ success: true, message: 'User registered successfully' });
-})
+    res.status(200).json({ success: true, message: 'User registered successfully' });
+});
 
-// current user profile => api/me
 export const currentUser = catchAsyncError(async (req, res) => {
     const user = await User.findById(req.user._id);
     res.status(200).json({
@@ -46,8 +42,6 @@ export const currentUser = catchAsyncError(async (req, res) => {
     });
 });
 
-
-// update user profile => api/me/update
 export const updateUser = catchAsyncError(async (req, res) => {
     const user = await User.findById(req.user._id);
     if (user) {
@@ -74,7 +68,7 @@ export const updateUser = catchAsyncError(async (req, res) => {
         success: true,
     });
 });
-// Forgot password  => /api/password/forgot
+
 export const forgortPassword = catchAsyncError(async (req, res, next) => {
     const user = await User.findOne({
         email: req.body.email,
@@ -111,9 +105,8 @@ export const forgortPassword = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler(error.message, 500));
     }
 });
-// Reset Password  =>  api/password/reset/:token
+
 export const resetPassword = catchAsyncError(async (req, res, next) => {
-    // Hash url Token
     const resetPasswordToken = crypto.createHash('sha256').update(req.query.token).digest('hex');
 
     const user = await User.findOne({
@@ -128,7 +121,7 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
     if (req.body.password !== req.body.confirmPassword) {
         return next(new ErrorHandler('Password doesnt match', 400));
     }
-// Setup the new password 
+
     user.password = req.body.password;
     user.resetPasswordToken = undefined;
     user.resetPasswordExpire = undefined;

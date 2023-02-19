@@ -7,10 +7,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerAction } from 'redux/actions/authAction';
 import { REGISTER_USER } from 'redux/constants/authConstant';
 
-const Register = () => {
+export default function Register() {
     const dispatch = useDispatch();
-    const router = useRouter();
     const { loader, success, error } = useSelector((state) => state.user);
+    const router = useRouter();
     const [loading, setLoading] = useState(false);
     const [avatar, setAvatar] = useState('');
     const [avatarPreview, setAvatarPreview] = useState('/images/default_avatar.jpeg');
@@ -54,9 +54,11 @@ const Register = () => {
         }else{
             setLoading(false);
         }
+
         if (error) {
             toast.error(error);
         }
+
         if (Object.keys(success).length) {
             router.push('/login')
         }
@@ -111,5 +113,3 @@ const Register = () => {
     );
 };
 
-
-export default Register

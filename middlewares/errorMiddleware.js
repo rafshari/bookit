@@ -1,32 +1,24 @@
-import ErrorHandler from '@/utils/errorHandler';
-
+import ErrorHandler from "utils/errorHandler";
 
 export default (err, req, res, next) => {
-    err.statusCode = err.statusCode || 500;
+  err.status = err.status || 500;
+  let error = { ...err };
 
-    let error = { ...err }
+  error.message = err.message;
+  if (err.name === "CastError") {
+    const message = `Resource not found. Invalid ${err.path}`;
+    error = new ErrorHandler(message, 404);
+  }
 
-    error.message = err.message
+  if (err.name === "ValidationError") {
+    const message = Object.values(err.errors).map((values) => values.message);
+    error = new ErrorHandler(message, 400);
+  }
 
-    // Wrong Mongoose Object ID Error
-    if (err.name === 'CastError') {
-        const message = `Resource not found. Invalid: ${err.path}`;
-        error = new ErrorHandler(message, 400);
-    }
-
-    // Handling mongoose Validation error
-    if (err.name === 'ValidationError') {
-        const message = Object.values(err.errors).map((value) => value.message);
-        error = new ErrorHandler(message, 400);
-    }
-
-
-    res.status(err.statusCode).json({
-        success: false,
-        error,
-        message: error.message,
-        stack: error.stack
-    })
-
-
-}
+  res.status(err.status).json({
+    success: false,
+    message: error.message,
+    stack: error.stack,
+    error,
+  });
+};

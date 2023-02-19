@@ -1,9 +1,8 @@
 import {
-  ALL_ROOM, 
+  ALL_ROOM,
+  CHECK_USER_CAN_REVIEW,
   GET_ROOM,
-  CHECK_USER_CAN_REVIEW, 
-
-} from '@/redux/constants/roomConstant'
+} from "redux/constants/roomConstant";
 
 const intialState = {
   roomList: [],
@@ -17,7 +16,7 @@ const intialState = {
 };
 
 const roomReducer = (state = intialState, action) => {
-  const newState = { ...state }; 
+  const newState = { ...state };
 
   switch (action.type) {
     case ALL_ROOM.pending:
@@ -37,7 +36,8 @@ const roomReducer = (state = intialState, action) => {
       newState.loader = newState.loader.filter((el) => el !== ALL_ROOM.pending);
       newState.error = action.payload;
       return newState;
-      case GET_ROOM.pending:
+
+    case GET_ROOM.pending:
       newState.loader = [...newState.loader, GET_ROOM.pending];
       newState.error = "";
       return newState;
@@ -61,8 +61,6 @@ const roomReducer = (state = intialState, action) => {
       newState.userCanReview = action.payload;
   }
   return newState;
+};
 
-}
-
-
-export default roomReducer
+export default roomReducer;

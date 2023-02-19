@@ -3,7 +3,7 @@ import Profile from 'components/user/Profile';
 import { getSession } from 'next-auth/react';
 import React from 'react';
 
-const UpdateProfilePage = () =>  {
+export default function UpdateProfilePage ()  {
     return (
         <>
             <Layout title='update profiel'>
@@ -12,6 +12,7 @@ const UpdateProfilePage = () =>  {
         </>
     );
 };
+
 
 
 export const getServerSideProps = async (context) => {
@@ -30,6 +31,3 @@ export const getServerSideProps = async (context) => {
         },
     };
 };
-
-
-export default UpdateProfilePage

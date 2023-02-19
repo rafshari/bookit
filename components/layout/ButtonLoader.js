@@ -1,9 +1,10 @@
-import React from 'react'
+import React from 'react';
 
-const ButtonLoader = () => {
+export default function ButtonLoader  ()  {
     return (
-        <div className='lds-dual-ring'></div>
-    )
-}
+        <>
+            <div className='lds-dual-ring'></div>
+        </>
+    );
+};
 
-export default ButtonLoader
