@@ -5,7 +5,7 @@ import Link from "next/link";
 export default function RoomCard  ({ room }) {
   return (
     <>
-      <div className="col-sm-12 col-md-6 col-lg-3 my-3">
+      <div dir="rtl" className="col-sm-12 col-md-6 col-lg-3 my-3">
         <div className="card p-2">
           <Image
             height={170}
@@ -34,7 +34,7 @@ export default function RoomCard  ({ room }) {
             </div>
             <button className="btn btn-block view-btn">
               <Link href='/room/[id]' as={`/room/${room._id}`}>
-                View Details
+                مشاهده جزئیات
               </Link>
             </button>
           </div>

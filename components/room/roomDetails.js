@@ -101,7 +101,7 @@ export default function RoomDetail  ()  {
   return (
     <>
       <Head>
-        <title>{roomDetail.name} -bookit</title>
+        <title>{roomDetail.name} - bookit</title>
       </Head>
       <div className="container container-fluid">
         <h2 className="mt-5">{roomDetail.name}</h2>
@@ -124,7 +124,7 @@ export default function RoomDetail  ()  {
                   className="m-auto display-block"
                   src={image.url}
                   alt={roomDetail.name}
-                  layout="fill"
+                  fill
                 />
               </div>
             </Carousel.Item>

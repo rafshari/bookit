@@ -37,6 +37,7 @@
     "redux": "^4.2.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.2",
+    "stripe": "^11.11.0",
     "validator": "^13.9.0"
   }
 }
