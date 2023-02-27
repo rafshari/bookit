@@ -1,18 +1,19 @@
-import nc from "next-connect";
-import { dbConnect } from "config/dbConnect";
-import { deleteRoom, getRoom, updateRoom } from "controllers/roomController";
-import onError from "middlewares/errorMiddleware";
+import nc from 'next-connect'
+import { dbConnect } from 'config/dbConnect'
+import { deleteRoom, getRoom, updateRoom } from 'controllers/roomController'
+import onError from 'middlewares/errorMiddleware'
+import { authorizeRoles, isAuthenticatedUser } from '@/middlewares/auth'
 
 const handler = nc({
   onError,
-});
+})
 
-dbConnect();
+dbConnect()
 
-handler.get(getRoom);
+handler.get(getRoom)
 
-handler.put(updateRoom);
+handler.use(isAuthenticatedUser, authorizeRoles('admin')).put(updateRoom)
 
-handler.delete(deleteRoom);
+handler.use(isAuthenticatedUser, authorizeRoles('admin')).delete(deleteRoom)
 
-export default handler;
+export default handler  

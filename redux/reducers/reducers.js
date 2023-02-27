@@ -6,6 +6,7 @@ const reducers = combineReducers({
     room: roomReducer,
     user: authReducer,
     booking: bookingReducer,
+    
 });
 
 export default reducers;

@@ -12,6 +12,9 @@ class Constant {
   get pending() {
     return `PENDNG_${this.type}`;
   }
+  get reset() {
+    return `RESET_${this.type}`;
+  }
 }
 
 

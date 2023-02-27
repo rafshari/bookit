@@ -21,6 +21,14 @@ const roomSchema = new mongoose.Schema({
     type: String,
     required: [true, "Please enter room address"],
   },
+    category: {
+    type: String,
+    required: [true, "Please enter room category"],
+    enum: {
+      values: ["King", "Single", "Twins"],
+      message: "Please select correct category for room",
+    },
+  },
   guestCapacity: {
     type: Number,
     required: [true, "Please enter room capacity"],
@@ -69,14 +77,6 @@ const roomSchema = new mongoose.Schema({
       },
     },
   ],
-  category: {
-    type: String,
-    required: [true, "Please enter room category"],
-    enum: {
-      values: ["King", "Single", "Twins"],
-      message: "Please select correct category for room",
-    },
-  },
   reviews: [
     {
       user: {
