@@ -42,6 +42,9 @@ export default function Header() {
                   <Link href='/admin/rooms' className='dropdown-item'>
                     Rooms List
                   </Link>
+                  <Link href='/admin/bookings' className='dropdown-item'>
+                    Bookings List
+                  </Link>
                   <hr />
                 </>
               )}

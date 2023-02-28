@@ -1,62 +1,135 @@
-import axios from 'axios';
-import { BOOKED_DATES, CREATE_NEW_REVIEW, MY_BOOKIING_DETAILS, MY_BOOKINGS, ROOM_AVAILABILITY } from 'redux/constants/bookingConstant';
+import axios from 'axios'
+import {
+  ALL_BOOKINGS,
+  BOOKED_DATES,
+  CREATE_NEW_REVIEW,
+  DELETE_BOOKING,
+  MY_BOOKING_DETAILS,
+  MY_BOOKINGS,
+  ROOM_AVAILABILITY,
+} from 'redux/constants/bookingConstant'
+import { CLEAR_ERRORS } from '../constants/roomConstant'
 
 export const checkRoomAvailability = (room, checkInDate, checkOutDate) => {
-    return async (dispatch, getState) => {
-        try {
-            dispatch({ type: ROOM_AVAILABILITY.pending });
-            const { data } = await axios.get(`/api/bookings/check?room=${room}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`);
-            dispatch({ type: ROOM_AVAILABILITY.success, payload: data.isAvailable });
-        } catch (error) {
-            dispatch({ type: ROOM_AVAILABILITY.failed, payload: error.response.data.message });
-        }
-    };
-};
+  return async (dispatch, getState) => {
+    try {
+      dispatch({ type: ROOM_AVAILABILITY.pending })
+      const { data } = await axios.get(
+        `/api/bookings/check?room=${room}&checkInDate=${checkInDate}&checkOutDate=${checkOutDate}`
+      )
+      dispatch({ type: ROOM_AVAILABILITY.success, payload: data.isAvailable })
+    } catch (error) {
+      dispatch({
+        type: ROOM_AVAILABILITY.failed,
+        payload: error.response.data.message,
+      })
+    }
+  }
+}
 
 export const checkBookedDates = (roomId) => {
-    return async (dispatch, getState) => {
-        try {
-            dispatch({ type: BOOKED_DATES.pending });
-            const { data } = await axios.get(`/api/bookings/checkBookedDates?roomId=${roomId}`);
-            dispatch({ type: BOOKED_DATES.success, payload: data.bookedDates });
-        } catch (error) {
-            dispatch({ type: BOOKED_DATES.failed, payload: error.response.data.message });
-        }
-    };
-};
+  return async (dispatch, getState) => {
+    try {
+      dispatch({ type: BOOKED_DATES.pending })
+      const { data } = await axios.get(
+        `/api/bookings/checkBookedDates?roomId=${roomId}`
+      )
+      dispatch({ type: BOOKED_DATES.success, payload: data.bookedDates })
+    } catch (error) {
+      dispatch({
+        type: BOOKED_DATES.failed,
+        payload: error.response.data.message,
+      })
+    }
+  }
+}
 
 export const getMyBookings = () => {
-    return async (dispatch, getState) => {
-        try {
-            dispatch({ type: MY_BOOKINGS.pending });
-            const { data } = await axios.get(`/api/bookings/me`);
-            dispatch({ type: MY_BOOKINGS.success, payload: data.bookings });
-        } catch (error) {
-            dispatch({ type: MY_BOOKINGS.failed, payload: error.response.data.message });
-        }
-    };
-};
+  return async (dispatch, getState) => {
+    try {
+      dispatch({ type: MY_BOOKINGS.pending })
+      const { data } = await axios.get(`/api/bookings/me`)
+      dispatch({ type: MY_BOOKINGS.success, payload: data.bookings })
+    } catch (error) {
+      dispatch({
+        type: MY_BOOKINGS.failed,
+        payload: error.response.data.message,
+      })
+    }
+  }
+}
 
 export const getMyBookingDetail = (bookingId) => {
-    return async (dispatch, getState) => {
-        try {
-            dispatch({ type: MY_BOOKIING_DETAILS.pending });
-            const { data } = await axios.get(`/api/bookings/${bookingId}`);
-            dispatch({ type: MY_BOOKIING_DETAILS.success, payload: data.booking });
-        } catch (error) {
-            dispatch({ type: MY_BOOKIING_DETAILS.failed, payload: error.response.data.message });
-        }
-    };
-};
+  return async (dispatch, getState) => {
+    try {
+      dispatch({ type: MY_BOOKING_DETAILS.pending })
+      const { data } = await axios.get(`/api/bookings/${bookingId}`)
+      dispatch({ type: MY_BOOKING_DETAILS.success, payload: data.booking })
+    } catch (error) {
+      dispatch({
+        type: MY_BOOKING_DETAILS.failed,
+        payload: error.response.data.message,
+      })
+    }
+  }
+}
 
 export const createNewReview = (reviewData) => {
-    return async (dispatch, getState) => {
-        try {
-            dispatch({type: CREATE_NEW_REVIEW.pending});
-            const {data} = await axios.post(`/api/reviews`, reviewData);
-            dispatch({ type: CREATE_NEW_REVIEW.success, payload: data });
-        } catch (error) {
-            dispatch({ type: CREATE_NEW_REVIEW.failed, payload: error.response.data.message });
-        }
+  return async (dispatch, getState) => {
+    try {
+      dispatch({ type: CREATE_NEW_REVIEW.pending })
+      const { data } = await axios.post(`/api/reviews`, reviewData)
+      dispatch({ type: CREATE_NEW_REVIEW.success, payload: data })
+    } catch (error) {
+      dispatch({
+        type: CREATE_NEW_REVIEW.failed,
+        payload: error.response.data.message,
+      })
     }
+  }
+}
+
+// ALL BOOKINGS
+export const getAdminBookings = () => async (dispatch) => {
+  try {
+    dispatch({ type: ALL_BOOKINGS.pending })
+
+    const { data } = await axios.get(`/api/admin/bookings`)
+    console.log('first:', data)
+
+    dispatch({
+      type: ALL_BOOKINGS.success,
+      payload: data.bookings,
+    })
+  } catch (error) {
+    dispatch({
+      type: ALL_BOOKINGS.failed,
+      payload: error.response.data.message,
+    })
+  }
+}
+// DELETE BOOKINGS
+export const deleteBooking = (id) => async (dispatch) => {
+  try {
+    dispatch({ type: DELETE_BOOKING.pending })
+
+    const { data } = await axios.delete(`/api/admin/bookings/${id}`)
+
+    dispatch({
+      type: DELETE_BOOKING.success,
+      payload: data.success,
+    })
+  } catch (error) {
+    dispatch({
+      type: DELETE_BOOKING.failed,
+      payload: error.response.data.message,
+    })
+  }
+}
+
+// Clear Errors
+export const clearErrors = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_ERRORS,
+  })
 }

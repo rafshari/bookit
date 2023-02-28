@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { getAdminRooms, deleteRoom, clearErrors } from '@/redux/actions/roomAction'
 import { ALL_ROOM_ADMIN, DELETE_ROOM} from '@/redux/constants/roomConstant'
 
+
 const AllRooms = () => {
 
     const dispatch = useDispatch()
@@ -33,7 +34,6 @@ const AllRooms = () => {
         if (isDeleted) {
             dispatch({ type: DELETE_ROOM.reset })
             router.push('/admin/rooms')
-            console.log('isDeleted:',isDeleted)
         }
       }
     }, [dispatch, deleteError, isDeleted])

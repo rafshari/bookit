@@ -19,7 +19,7 @@ import ListReview from "components/review/ListReview";
 
 export default function RoomDetail  ()  {
   const { roomDetail } = useSelector((state) => state.room);
-  const { roomAvailabilty, bookedDates } = useSelector(
+  const { roomAvailability, bookedDates } = useSelector(
     (state) => state.booking
   );
   const { user } = useSelector((state) => state.user);
@@ -159,22 +159,22 @@ export default function RoomDetail  ()  {
               />
               {checkInDate && checkOutDate && (
                 <>
-                  {roomAvailabilty && (
+                  {roomAvailability && (
                     <div className="alert alert-success my-3 font-weight-bold">
                       Room is available. Book now
                     </div>
                   )}
-                  {!roomAvailabilty && (
+                  {!roomAvailability && (
                     <div className="alert alert-danger my-3 font-weight-bold">
                       Room is not available. Try different date.
                     </div>
                   )}
-                  {roomAvailabilty && !Object.keys(user).length && (
+                  {roomAvailability && !Object.keys(user).length && (
                     <div className="alert alert-danger my-3 font-weight-bold">
                       Login to book room
                     </div>
                   )}
-                  {roomAvailabilty && !!Object.keys(user).length && (
+                  {roomAvailability && !!Object.keys(user).length && (
                     <button
                       className="btn btn-block py-3 booking-btn"
                       onClick={() =>

@@ -101,7 +101,7 @@ export const newRoom = (roomData) => async (dispatch) => {
       },
     }
     const response = await axios.post(`/api/rooms`, roomData, config)
-    console.log('دوم:', response.data.success)
+    //console.log('دوم:', response.data.success)
     dispatch({
       type: NEW_ROOM.success,
       payload: response.data.success,
