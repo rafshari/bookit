@@ -3,21 +3,22 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 import { MDBDataTable } from 'mdbreact'
-import Loader from '../layout/Loader'
+import Loader from 'components/layout/Loader'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 
-import { getAdminUsers, deleteUser, clearErrors } from '../../redux/actions/userActions'
-import { DELETE_USER_RESET } from '../../redux/constants/userConstants'
+import { getAdminUsers, deleteUser, clearErrors } from 'redux/actions/authAction'
+import { ALL_USERS, DELETE_USER } from 'redux/constants/authConstant'
+//import { ALL_ROOM } from 'redux/constants/roomConstant'
 
 const AllUsers = () => {
 
     const dispatch = useDispatch()
     const router = useRouter()
 
-    const { loader, error, users } = useSelector(state => state.allUsers)
-    const { error: deleteError, isDeleted } = useSelector(state => state.user)
+    const { loader, error, users } = useSelector(state => state.user)
+    const { error: deleteError, isDeleted } = useSelector(state => state.user.userDelete)
 
     useEffect(() => {
 
@@ -29,13 +30,13 @@ const AllUsers = () => {
         }
 
         if (deleteError) {
-            toast.erroe(deleteError);
+            toast.error(deleteError);
             dispatch(clearErrors())
         }
 
         if (isDeleted) {
             router.push('/admin/users')
-            dispatch({ type: DELETE_USER_RESET })
+            dispatch({ type: DELETE_USER.reset})
         }
 
     }, [dispatch, error, isDeleted])
@@ -82,10 +83,8 @@ const AllUsers = () => {
                 role: user.role,
                 actions:
                     <>
-                        <Link href={`/admin/users/${user._id}`}>
-                            <a className="btn btn-primary">
-                                <i className="fa fa-pencil"></i>
-                            </a>
+                        <Link href={`/admin/users/${user._id}`} className="btn btn-primary">
+                            <i className="fa fa-pencil"></i>
                         </Link>
 
                         <button className="btn btn-danger mx-2" onClick={() => deleteUserHandler(user._id)}>
@@ -107,7 +106,7 @@ const AllUsers = () => {
 
     return (
         <div className='container container-fluid'>
-            {loader ? <Loader /> :
+            {loader.includes(ALL_USERS.pending) ? <Loader /> :
                 <>
                     <h1 className='my-5'>{`${users && users.length} Users`}</h1>
 

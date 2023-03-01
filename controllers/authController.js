@@ -12,7 +12,7 @@ cloudinary.config({
     api_key: process.env.CLOUDINARY_API_KEY,
     api_secret: process.env.CLOUDINARY_APISECRET,
 });
-
+// REGISTER USER
 export const registerUser = catchAsyncError(async (req, res) => {
     const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
         folder: 'bookit/avatars',
@@ -33,7 +33,7 @@ export const registerUser = catchAsyncError(async (req, res) => {
     });
     res.status(200).json({ success: true, message: 'User registered successfully' });
 });
-
+// GET CURRENT USER   => /api/me
 export const currentUser = catchAsyncError(async (req, res) => {
     const user = await User.findById(req.user._id);
     res.status(200).json({
@@ -41,34 +41,84 @@ export const currentUser = catchAsyncError(async (req, res) => {
         user,
     });
 });
+// GET user details by ADMIN  =>   /api/admin/users/:id
+export const getUserDetails = catchAsyncError(async (req, res) => {
 
-export const updateUser = catchAsyncError(async (req, res) => {
+    const user = await User.findById(req.query.id);
+
+    if (!user) {
+        return next(new ErrorHandler('User not found with this ID.', 400))
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+
+})
+
+// Update user profile   =>   /api/me/update
+export const updateProfile = catchAsyncError(async (req, res) => {
+
     const user = await User.findById(req.user._id);
+
     if (user) {
         user.name = req.body.name;
         user.email = req.body.email;
 
         if (req.body.password) user.password = req.body.password;
     }
+
+    // Update avatar
     if (req.body.avatar !== '') {
+
         const image_id = user.avatar.public_id;
+
+        // Delete user previous image/avatar
         await cloudinary.v2.uploader.destroy(image_id);
+
         const result = await cloudinary.v2.uploader.upload(req.body.avatar, {
             folder: 'bookit/avatars',
             width: '150',
-            crop: 'scale',
-        });
+            crop: 'scale'
+        })
+
         user.avatar = {
             public_id: result.public_id,
-            url: result.url,
-        };
-    }
-    await user.save();
-    res.status(200).json({
-        success: true,
-    });
-});
+            url: result.secure_url
+        }
 
+    }
+
+    await user.save();
+
+    res.status(200).json({
+        success: true
+    })
+
+})
+
+// UPDATE USER by ADMIN  =>   /api/admin/users/:id
+export const updateUser = catchAsyncError(async (req, res) => {
+
+    const newUserData = {
+        name: req.body.name,
+        email: req.body.email,
+        role: req.body.role,
+    }
+
+    const user = await User.findByIdAndUpdate(req.query.id, newUserData, {
+        new: true,
+        runValidators: true,
+        useFindAndModify: false
+    });
+
+    res.status(200).json({
+        success: true
+    })
+
+})
+// FORGOT PASSWORD
 export const forgortPassword = catchAsyncError(async (req, res, next) => {
     const user = await User.findOne({
         email: req.body.email,
@@ -105,7 +155,7 @@ export const forgortPassword = catchAsyncError(async (req, res, next) => {
         return next(new ErrorHandler(error.message, 500));
     }
 });
-
+// RESET PASSWORD
 export const resetPassword = catchAsyncError(async (req, res, next) => {
     const resetPasswordToken = crypto.createHash('sha256').update(req.query.token).digest('hex');
 
@@ -133,3 +183,41 @@ export const resetPassword = catchAsyncError(async (req, res, next) => {
         message: 'Password updated',
     });
 });
+
+
+//GET ALL USERS   =>   /api/admin/users
+export const allAdminUsers = catchAsyncError(async (req, res) => {
+
+    const users = await User.find();
+
+    res.status(200).json({
+        success: true,
+        users
+    })
+
+})
+
+
+// Delete user    =>   /api/admin/users/:id
+export const deleteUser = catchAsyncError(async (req, res) => {
+
+    const user = await User.findById(req.query.id);
+
+    if (!user) {
+        return next(new ErrorHandler('User not found with this ID.', 400))
+    }
+
+    // Remove avatar 
+    const image_id = user.avatar.public_id;
+    await cloudinary.v2.uploader.destroy(image_id)
+
+
+    await user.remove();
+
+    res.status(200).json({
+        success: true,
+    })
+
+})
+
+

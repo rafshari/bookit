@@ -7,6 +7,7 @@ import {
   CLEAR_ERRORS,
   UPDATE_ROOM,
   DELETE_ROOM,
+  GET_REVIEWS
 } from '../constants/roomConstant'
 import axios from 'axios'
 import absoluteURL from 'next-absolute-url'
@@ -181,6 +182,47 @@ export const userCanReviewAction = (roomId) => {
         payload: error.response.data.message,
       })
     }
+  }
+}
+
+// GET REVIEWS
+export const getRoomReviews = (id) => async (dispatch) => {
+  try {
+      dispatch({ type: GET_REVIEWS.pending })
+
+      const { data } = await axios.get(`/api/reviews/?id=${id}`)
+
+      dispatch({
+          type: GET_REVIEWS.success,
+          payload: data.reviews
+      })
+
+  } catch (error) {
+      dispatch({
+          type: GET_REVIEWS.failed,
+          payload: error.response.data.message
+      })
+  }
+}
+
+// DELETE REVIEWS
+export const deleteReview = (id, roomId) => async (dispatch) => {
+  try {
+
+      dispatch({ type: DELETE_REVIEW_REQUEST })
+
+      const { data } = await axios.delete(`/api/reviews/?id=${id}&roomId=${roomId}`)
+
+      dispatch({
+          type: DELETE_REVIEW_SUCCESS,
+          payload: data.success
+      })
+
+  } catch (error) {
+      dispatch({
+          type: DELETE_REVIEW_FAIL,
+          payload: error.response.data.message
+      })
   }
 }
 

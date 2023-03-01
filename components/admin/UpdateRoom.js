@@ -96,7 +96,6 @@ const UpdateRoom = () => {
         if (images.length !== 0) roomData.images = images
 
         dispatch(updateRoom(room._id, roomData))
-
     }
 
 
@@ -338,9 +337,9 @@ const UpdateRoom = () => {
                                 <button
                                     type="submit"
                                     className="btn btn-block new-room-btn py-3"
-                                    disabled={loader ? true : false}
+                                    disabled={loading ? true : false}
                                 >
-                                    {loader ? <ButtonLoader /> : 'UPDATE'}
+                                    {loading ? <ButtonLoader /> : 'UPDATE'}
                                 </button>
                             </form>
                         </div>

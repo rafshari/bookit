@@ -8,6 +8,7 @@ import {
   UPDATE_ROOM,
   DELETE_ROOM,
   DELETE_ROOM_RESET,
+  GET_REVIEWS,
   } from 'redux/constants/roomConstant'
 
 const intialState = {
@@ -21,7 +22,8 @@ const intialState = {
   userCanReview: false,
   success: false,
   roomUpdate:{loading:false, isUpdated: false, roomDetail:{}, error:''},
-  roomDelete:{isDeleted: false, error:''}
+  roomDelete:{isDeleted: false, error:''},
+  reviews:[]
 }
 
 const roomReducer = (state = intialState, action) => {
@@ -144,6 +146,23 @@ const roomReducer = (state = intialState, action) => {
       case DELETE_ROOM_RESET:
         newState.roomDelete.isDeleted = false
         return newState
+        
+ //  GET REVIEWS
+    case GET_REVIEWS.pending:
+      newState.loader = [...newState.loader, GET_REVIEWS.pending]
+      newState.error = ''
+      return newState
+
+    case GET_REVIEWS.success:
+      newState.loader =  newState.loader.filter((el) => el !== GET_REVIEWS.pending)
+      newState.reviews = action.payload
+      return newState
+
+    case GET_REVIEWS.failed:
+      newState.loader =  newState.loader.filter((el) => el !== GET_REVIEWS.pending)
+      newState.error = action.payload
+      return newState
+      
 
 }
   return newState
