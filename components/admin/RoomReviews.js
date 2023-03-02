@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import { MDBDataTable } from 'mdbreact'
-import Loader from '../layout/Loader'
+import Loader from 'components/layout/Loader'
 
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 
-import { getRoomReviews, deleteReview, clearErrors } from '../../redux/actions/roomActions'
-import { DELETE_REVIEW_RESET } from '../../redux/constants/roomConstants'
+import { getRoomReviews, deleteReview, clearErrors } from 'redux/actions/roomAction'
+import { DELETE_REVIEW, DELETE_REVIEW_RESET } from 'redux/constants/roomConstant'
 
 const RoomReviews = () => {
 
@@ -17,8 +17,8 @@ const RoomReviews = () => {
     const dispatch = useDispatch()
     const router = useRouter()
 
-    const { loading, error, reviews } = useSelector(state => state.roomReviews)
-    const { error: deleteError, isDeleted } = useSelector(state => state.review)
+    const { loading, error, reviews } = useSelector(state => state.room)
+    const { error: deleteError, isDeleted } = useSelector(state => state.room.reviewDelete)
 
     useEffect(() => {
 
@@ -38,7 +38,7 @@ const RoomReviews = () => {
 
         if (isDeleted) {
             toast.success('Review is deleted.')
-            dispatch({ type: DELETE_REVIEW_RESET })
+            dispatch({ type: DELETE_REVIEW.reset })
         }
 
     }, [dispatch, error, roomId, deleteError, isDeleted])

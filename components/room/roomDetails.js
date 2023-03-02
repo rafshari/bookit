@@ -19,14 +19,14 @@ import ListReview from "components/review/ListReview";
 
 export default function RoomDetail  ()  {
   const { roomDetail } = useSelector((state) => state.room);
-  const { roomAvailability, bookedDates } = useSelector(
-    (state) => state.booking
-  );
-  const { user } = useSelector((state) => state.user);
+  const { roomAvailability, bookedDates } = useSelector((state) => state.booking)
+  const { user } = useSelector((state) => state.user)
+
   const [checkInDate, setCheckInDate] = useState();
   const [checkOutDate, setCheckOutDate] = useState();
   const [daysOfStay, setdaysOfStay] = useState();
   const [paymentLoading, setPaymentLoading] = useState(false);
+
   const router = useRouter();
   const dispatch = useDispatch();
   const excludedDates = bookedDates.map((dates) => new Date(dates));

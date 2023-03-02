@@ -9,7 +9,7 @@ const rooms = require("../data/rooms.json");
 
 mongoose
   .connect(
-    "mongodb://127.0.0.1:27017/bookit",
+    "mongodb+srv://roozbeh123:roozbeh123@cluster0.skexl.mongodb.net/bookit?retryWrites=true&w=majority",
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,

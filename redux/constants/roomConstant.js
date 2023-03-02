@@ -9,6 +9,7 @@ export const ALL_ROOM_ADMIN = new Constant('ALL_ROOM_ADMIN')
 export const CHECK_USER_CAN_REVIEW = new Constant('CHECK_USER_CAN_REVIEW')
 
 export const GET_REVIEWS = new Constant('GET_REVIEWS')
+export const DELETE_REVIEW = new Constant('DELETE_REVIEW')
 
 
 export const NEW_ROOM_RESET = 'NEW_ROOM_RESET'

@@ -3,6 +3,8 @@ const nextConfig = {
   reactStrictMode: false,
   env: {
     DB_LOCAL_URI: 'mongodb://127.0.0.1:27017/bookittest',
+    DB_URI: 'mongodb+srv://roozbeh123:roozbeh123@cluster0.skexl.mongodb.net/bookit?retryWrites=true&w=majority',
+    
     CLOUDINARY_CLOUD_NAME: 'dxb4gek9t',
     CLOUDINARY_API_KEY: '517861677599238',
     CLOUDINARY_APISECRET: '3f2a8OTskk-3gBKp7S_SX-OAxwQ',
@@ -17,11 +19,10 @@ const nextConfig = {
     SMTP_FROM_NAME: 'Bookit',
     SMTP_FROM_EMAIL: 'noreply@bootkit.com',
 
-    STRIPE_API_KEY:
-      'pk_live_51L9jGFSJgzXB8D3o8sFkpSoLWGLjO7p1nCYUjQ8qkdnQOs9Pg0Gd5003kjNWGaWKcBsmINk6G6B7h5eTtcTOV4Tv00fBXwsIqL',
-    STRIPE_SECRET_KEY:
-      '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',
-          STRIPE_WEBHOOK_SECRET: 'whsec_VNldn1kZxEJc1hYieeYYBP3rhkhKxbVL',
+    STRIPE_API_KEY:'pk_test_51MhFY5HykZY2WQaMq0hQpup2FCyTk2FFJnGXEfAPsDPEo5DoSNhi379On06vsnnYJY0rWSuGyylB8FqXQw4G4SF100UvYBboXj',
+      
+    STRIPE_SECRET_KEY:'sk_test_51MhFY5HykZY2WQaMxauvJJYYdjHrRkshXYpub8mdrnCTe5zunQiJR0aAC4nmLYc9d8nPm6QPCjbZ4x0mS3s3ad8O00iva5sTDW',
+STRIPE_WEBHOOK_SECRET: 'whsec_VNldn1kZxEJc1hYieeYYBP3rhkhKxbVL',
           
   },
   images: {
