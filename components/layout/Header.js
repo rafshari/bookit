@@ -16,7 +16,7 @@ export default function Header() {
     }
   }, [dispatch, user])
   const renderLoginOrAvatar = () => {
-    if (!loader.includes(GET_USER.pending) && Object.keys(user).length) {
+    if (!loader.includes(GET_USER.pending) && Object.keys(user).length  ) {
       return (
         <>
           <div className='ml-4 dropdown d-line'>
