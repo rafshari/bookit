@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify';
 
 import { getRoomReviews, deleteReview, clearErrors } from 'redux/actions/roomAction'
-import { DELETE_REVIEW, DELETE_REVIEW_RESET } from 'redux/constants/roomConstant'
+import { DELETE_REVIEW } from 'redux/constants/roomConstant'
 
 const RoomReviews = () => {
 
@@ -21,29 +21,28 @@ const RoomReviews = () => {
     const { error: deleteError, isDeleted } = useSelector(state => state.room.reviewDelete)
 
     useEffect(() => {
-
         if (error) {
             toast.error(error);
             dispatch(clearErrors())
         }
-
         if (roomId !== '') {
             dispatch(getRoomReviews(roomId))
         }
-
         if (deleteError) {
             toast.error(deleteError);
             dispatch(clearErrors())
         }
-
         if (isDeleted) {
             toast.success('Review is deleted.')
             dispatch({ type: DELETE_REVIEW.reset })
         }
-
     }, [dispatch, error, roomId, deleteError, isDeleted])
 
 
+    const deleteReviewHandler = (id) => {
+        dispatch(deleteReview(id, roomId))
+    }
+    
     const setReviews = () => {
         const data = {
             columns: [
@@ -94,10 +93,6 @@ const RoomReviews = () => {
 
     }
 
-    const deleteReviewHandler = (id) => {
-        dispatch(deleteReview(id, roomId))
-    }
-
 
     return (
         <div className='container container-fluid'>
@@ -107,7 +102,7 @@ const RoomReviews = () => {
                         <div className="form-group">
                             <label htmlFor="roomId_field">Enter Room ID</label>
                             <input
-                                type="email"
+                                type="number"
                                 id="roomId_field"
                                 className="form-control"
                                 value={roomId}

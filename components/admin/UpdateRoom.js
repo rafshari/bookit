@@ -32,7 +32,7 @@ const UpdateRoom = () => {
     const dispatch = useDispatch()
     const router = useRouter()
 
-    const { loading: loader, error, isUpdated } = useSelector(state => state.room.roomUpdate)
+    const { loading, error, isUpdated } = useSelector(state => state.room.roomUpdate)
     const { loader: roomDetailsLoading, error: roomDetailsError, roomDetail:room } = useSelector(state => state.room)
 
     const { id } = router.query

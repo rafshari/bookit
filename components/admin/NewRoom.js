@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+  import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import ButtonLoader from '../layout/ButtonLoader'
@@ -29,9 +29,8 @@ const NewRoom = () => {
   const dispatch = useDispatch()
   const router = useRouter()
 
-  const { loader, error, success } = useSelector(
-    (state) => state.room
-  )
+  const { loader, error, success } = useSelector((state) => state.room)
+
   useEffect(() => {
     if (error) {
       toast.error(error)

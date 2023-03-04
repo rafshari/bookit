@@ -34,6 +34,7 @@ const getRoom = catchAsyncError(async (req, res, next) => {
   res.status(200).json({ success: true, room })
 })
 
+
 // Create new room   =>   /api/rooms
 const createRoom = catchAsyncError(async (req, res) => {
   //console.log('requset:',req.body)
@@ -54,9 +55,9 @@ const createRoom = catchAsyncError(async (req, res) => {
   const room = await Room.create(req.body)
   res.status(200).json({ success: true, room })
   //console.log('سوم:', room, success)
-
 })
  
+
 // Update room details   =>   /api/rooms/:id
 const updateRoom = catchAsyncError(async (req, res, next) => {
   let room = await Room.findById(req.query.id)

@@ -23,24 +23,23 @@ const AllUsers = () => {
     useEffect(() => {
 
         dispatch(getAdminUsers())
-
         if (error) {
             toast.error(error);
             dispatch(clearErrors())
         }
-
         if (deleteError) {
             toast.error(deleteError);
             dispatch(clearErrors())
         }
-
         if (isDeleted) {
             router.push('/admin/users')
             dispatch({ type: DELETE_USER.reset})
         }
-
     }, [dispatch, error, isDeleted])
 
+   const deleteUserHandler = (id) => {
+        dispatch(deleteUser(id))
+    }
 
     const setUsers = () => {
         const data = {
@@ -99,11 +98,7 @@ const AllUsers = () => {
 
     }
 
-    const deleteUserHandler = (id) => {
-        dispatch(deleteUser(id))
-    }
-
-
+ 
     return (
         <div className='container container-fluid'>
             {loader.includes(ALL_USERS.pending) ? <Loader /> :

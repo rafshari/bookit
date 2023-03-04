@@ -88,7 +88,7 @@ export const checkBookedDates = catchAsyncError(async (req, res) => {
   })
 })
 
-// Get bookings of current user   =>   /api/bookings/me
+// Get My bookings List   =>   /api/bookings/me
 export const getMyBookings = catchAsyncError(async (req, res) => {
   const bookings = await Booking.find({
     user:  req.user
@@ -145,6 +145,25 @@ export const allAdminBookings = catchAsyncError(async (req, res) => {
     bookings,
   })
 })
+
+// Get booking details Admin   =>   /api/admin/bookings/:id
+export const getBookingDetails = catchAsyncError(async (req, res) => {
+  const booking = await Booking.findById(req.query.id)
+    .populate({
+      path: 'room',
+      select: 'name pricePerNight images',
+    })
+    .populate({
+      path: 'user',
+      select: 'name email',
+    })
+
+  res.status(200).json({
+    success: true,
+    booking,
+  })
+})
+
 
 // Delete booking - ADMIN   =>   /api/admin/bookings/id
 export const deleteBooking = catchAsyncError(async (req, res, next) => {
