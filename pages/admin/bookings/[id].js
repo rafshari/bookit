@@ -4,8 +4,6 @@ import { getSession } from 'next-auth/react'
 import BookingDetails from '@/components/booking/BookingDetail'
 import Layout from '@/components/layout/Layout'
 
-import { getBookingDetails } from '@/redux/actions/bookingActions'
-import { wrapper } from '@/redux/store'
 
 const BookingDetailsPage = () => {
     return (

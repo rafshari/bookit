@@ -59,8 +59,9 @@ export default function NewReview  () {
   }
 
   useEffect(() => {
-    dispatch(userCanReviewAction(router.query.id));
-  }, [router.query.id, dispatch]);
+    dispatch(userCanReviewAction(router.query.id))
+
+  }, [router.query.id, dispatch, comment,rating])
 
   return (
     <>
@@ -91,7 +92,7 @@ export default function NewReview  () {
               <div className="modal-content">
                 <div className="modal-header">
                   <h5 className="modal-title" id="ratingModalLabel">
-                    Submit Review
+                    Submit Review :
                   </h5>
                   <button
                     type="button"
@@ -135,7 +136,7 @@ export default function NewReview  () {
                     aria-label="Close"
                     onClick={handleSubmit}
                   >
-                    Submit
+                    Submit Review
                   </button>
                 </div>
               </div>

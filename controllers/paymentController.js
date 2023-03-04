@@ -7,34 +7,46 @@ import getrawBody from "raw-body";
 
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
+
 // Generate stripe checkout session   =>   /api/checkout_session/:roomId
 export const stripeCheckOutSession = catchAsyncError(async (req, res) => {
 
       // Get room details
   const room = await Room.findById(req.query.roomId);
-
-      // Get origin
-  const { origin } = absoluteUrl(req);
-  const { checkInDate, checkOutDate, daysOfStay } = req.query;
-
+console.log('backend1:',room)
+// Get origin
+const { origin } = absoluteUrl(req);
+const { checkInDate, checkOutDate, daysOfStay } = req.query;
+console.log('backend2:',daysOfStay)
+console.log('backend3:',process.env.STRIPE_SECRET_KEY)
+var amount = Math.round(req.query.amount*100)
       // Create stripe checkout session
+      try {
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],  
+    mode:'payment',
+    success_url: `${origin}/bookings/me`,
     cancel_url: `${origin}/room/${room._id}`,
     customer_email: req.user.email,
     client_reference_id: req.query.roomId,
     metadata: { checkInDate, checkOutDate, daysOfStay },
-    line_items: [
-      {
+    line_items: [{
+      quantity:1,
+    price_data: {
+      currency: "usd",
+      unit_amount: amount,
+            product_data:{
         name: room.name,
         images: [`${room.images[0].url}`],
-        amount: req.query.amount * 100,
-        currency: "usd",
-        quantity: 1,
-      },
-    ],
+      }
+    },
+  }],    
   });
+  console.log('backend4:',session)
   res.status(200).json(session);
+      } catch (e) {
+        throw new Error (e)
+      }
 });
 
 // Create new booking after payment   =>   /api/webhook

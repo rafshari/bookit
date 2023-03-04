@@ -36,6 +36,8 @@ export default function RoomDetail  ()  {
     setCheckInDate(checkInDate);
     setCheckOutDate(checkOutDate);
     if (checkInDate && checkOutDate) {
+
+// Calculate days of stay
       const days = Math.floor(
         (new Date(checkOutDate) - new Date(checkInDate)) / 86400000 + 1
       );
@@ -74,16 +76,22 @@ export default function RoomDetail  ()  {
   const bookRoom = async (id, pricePerNight) => {
     setPaymentLoading(true);
     const amount = pricePerNight * daysOfStay;
+    console.log('1:',amount)
+    const link = `/api/checkoutSession/${id}?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&daysOfStay=${daysOfStay}`
     try {
-      const link = `/api/checkoutSession/${id}?checkInDate=${checkInDate}&checkOutDate=${checkOutDate}&daysOfStay=${daysOfStay}`;
+
       const { data } = await axios.get(link, {
         params: {
           amount,
         },
       });
       const stripe = await getStripe();
+      console.log('2:',stripe)
+
+// Redirect to checkout
       stripe.redirectToCheckout({ sessionId: data.id });
-      setPaymentLoading(false);
+      setPaymentLoading(false)
+
     } catch (error) {
       setPaymentLoading(false);
       console.log(error);

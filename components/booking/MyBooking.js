@@ -8,7 +8,7 @@ import easyinvoice from 'easyinvoice';
 
 export default function MyBooking ()  {
     const dispatch = useDispatch();
-    const { myBooking } = useSelector((state) => state.booking);
+    const { myBookings } = useSelector((state) => state.booking);
     useEffect(() => {
         dispatch(getMyBookings());
     }, []);
@@ -22,8 +22,8 @@ export default function MyBooking ()  {
                 { label: 'Amount', field: 'amount', sort: 'asc' },
                 { label: 'Actions', field: 'actions', sort: 'asc' },
             ],
-            rows: !!myBooking.length
-                ? myBooking.map((booking) => ({
+            rows: !!myBookings.length
+                ? myBookings.map((booking) => ({
                       id: booking._id,
                       checkin: new Date(booking.checkInDate).toLocaleString('en-us'),
                       checkout: new Date(booking.checkOutDate).toLocaleString('en-us'),

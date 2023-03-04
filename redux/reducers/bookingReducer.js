@@ -8,6 +8,7 @@ import {
   CREATE_NEW_REVIEW,
   ALL_BOOKINGS,
   DELETE_BOOKING,
+  BOOKING_DETAILS_ADMIN,
 } from 'redux/constants/bookingConstant'
 
 const initialState = {
@@ -15,8 +16,9 @@ const initialState = {
   loader: [],
   error: '',
   bookedDates: [],
-  myBooking: [],
+  myBookings: [],
   myBookingDetails: {},
+  BookingDetails: {},
   bookings: [],
   deleteBooking: { loader: false, error: '', isDeleted: false },
 }
@@ -24,6 +26,8 @@ const initialState = {
 const bookingReducer = (state = initialState, action) => {
   const newState = { ...state }
   switch (action.type) {
+
+ //   ROOM AVAILABILIT
     case ROOM_AVAILABILITY.pending: {
       newState.loader = [...newState.loader, ROOM_AVAILABILITY.pending]
       return newState
@@ -36,7 +40,7 @@ const bookingReducer = (state = initialState, action) => {
       newState.roomAvailability = action.payload
       return newState
     }
-
+// Booked Dates
     case BOOKED_DATES.pending: {
       newState.loader = [...newState.loader, BOOKED_DATES.pending]
       return newState
@@ -49,7 +53,7 @@ const bookingReducer = (state = initialState, action) => {
        newState.bookedDates = action.payload
        return newState
     }
-    
+// My Bookings list    
     case MY_BOOKINGS.pending: {
       newState.loader = [...newState.loader, MY_BOOKINGS.pending]
       return newState
@@ -59,7 +63,7 @@ const bookingReducer = (state = initialState, action) => {
       newState.loader = newState.loader.filter(
         (el) => el !== MY_BOOKINGS.pending
       )
-      newState.myBooking = action.payload
+      newState.myBookings = action.payload
       return newState
     }
 
@@ -69,7 +73,7 @@ const bookingReducer = (state = initialState, action) => {
       )
       return newState
     }
-
+// My Bookings Details
     case MY_BOOKING_DETAILS.pending: {
       newState.loader = [...newState.loader, MY_BOOKING_DETAILS.pending]
       return newState
@@ -90,6 +94,27 @@ const bookingReducer = (state = initialState, action) => {
       return newState
     }
 
+    // BOOKING DETAILS ADMIN
+      case BOOKING_DETAILS_ADMIN.pending: {
+      newState.loader = [...newState.loader, BOOKING_DETAILS_ADMIN.pending]
+      return newState
+    }
+
+    case BOOKING_DETAILS_ADMIN.success: {
+      newState.loader = newState.loader.filter(
+        (el) => el !== BOOKING_DETAILS_ADMIN.pending
+      )
+      newState.BookingDetails = action.payload
+      return newState
+    }
+
+    case BOOKING_DETAILS_ADMIN.failed: {
+      newState.loader = newState.loader.filter(
+        (el) => el !== BOOKING_DETAILS_ADMIN.pending
+      )
+      return newState
+    }
+//
     case RESET_CHECK_BOOKING: {
       newState.roomAvailability = null
       return newState

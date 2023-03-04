@@ -58,7 +58,8 @@ export const getRoom = (req, id) => {
     dispatch({ type: GET_ROOM.pending })
     try {
       const { origin } = absoluteURL(req)
-      const response = await axios.get(`${origin}/api/rooms/${id}`)
+
+       const response = await axios.get(`${origin}/api/rooms/${id}`)
 
       dispatch({
         type: GET_ROOM.success,

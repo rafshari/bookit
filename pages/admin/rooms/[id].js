@@ -1,8 +1,8 @@
 import React from 'react'
 import { getSession } from 'next-auth/react'
 
-import UpdateRoom from '../../../components/admin/UpdateRoom'
-import Layout from '../../../components/layout/Layout'
+import UpdateRoom from 'components/admin/UpdateRoom'
+import Layout from 'components/layout/Layout'
 
 const UpdateRoomPage = () => {
     return (

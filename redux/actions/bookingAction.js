@@ -7,9 +7,11 @@ import {
   MY_BOOKING_DETAILS,
   MY_BOOKINGS,
   ROOM_AVAILABILITY,
+  BOOKING_DETAILS_ADMIN,
 } from 'redux/constants/bookingConstant'
 import { CLEAR_ERRORS } from '../constants/roomConstant'
 
+// check Room Availability
 export const checkRoomAvailability = (room, checkInDate, checkOutDate) => {
   return async (dispatch, getState) => {
     try {
@@ -27,6 +29,7 @@ export const checkRoomAvailability = (room, checkInDate, checkOutDate) => {
   }
 }
 
+// check Booked Dates
 export const checkBookedDates = (roomId) => {
   return async (dispatch, getState) => {
     try {
@@ -43,13 +46,16 @@ export const checkBookedDates = (roomId) => {
     }
   }
 }
-
+// Get my Bookings list
 export const getMyBookings = () => {
   return async (dispatch, getState) => {
     try {
       dispatch({ type: MY_BOOKINGS.pending })
       const { data } = await axios.get(`/api/bookings/me`)
-      dispatch({ type: MY_BOOKINGS.success, payload: data.bookings })
+      dispatch({ 
+        type: MY_BOOKINGS.success,
+        payload: data.bookings
+       })
     } catch (error) {
       dispatch({
         type: MY_BOOKINGS.failed,
@@ -58,13 +64,16 @@ export const getMyBookings = () => {
     }
   }
 }
-
+// get My Booking Detail
 export const getMyBookingDetail = (bookingId) => {
   return async (dispatch, getState) => {
     try {
       dispatch({ type: MY_BOOKING_DETAILS.pending })
       const { data } = await axios.get(`/api/bookings/${bookingId}`)
-      dispatch({ type: MY_BOOKING_DETAILS.success, payload: data.booking })
+      dispatch({ 
+        type: MY_BOOKING_DETAILS.success,
+         payload: data.booking 
+        })
     } catch (error) {
       dispatch({
         type: MY_BOOKING_DETAILS.failed,
@@ -73,7 +82,28 @@ export const getMyBookingDetail = (bookingId) => {
     }
   }
 }
+//get Booking Details admin
+export const getBookingDetailsAdmin = ( req, id) => async (dispatch) => {
+  try {
+    dispatch({ type: BOOKING_DETAILS_ADMIN.pending })
 
+      const { origin } = absoluteUrl(req);
+
+     
+      const { data } = await axios.get(`${origin}/api/admin/bookings/${id}`)
+
+      dispatch({
+          type: BOOKING_DETAILS_ADMIN.success,
+          payload: data.booking
+      })
+  } catch (error) {
+      dispatch({
+          type: BOOKING_DETAILS_ADMIN.failed,
+          payload: error.response?.data.message
+      })
+  }
+}
+// create New Review
 export const createNewReview = (reviewData) => {
   return async (dispatch, getState) => {
     try {
@@ -89,7 +119,7 @@ export const createNewReview = (reviewData) => {
   }
 }
 
-// ALL BOOKINGS
+// ALL BOOKINGS  Admin
 export const getAdminBookings = () => async (dispatch) => {
   try {
     dispatch({ type: ALL_BOOKINGS.pending })

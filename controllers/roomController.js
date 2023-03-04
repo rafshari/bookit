@@ -33,6 +33,7 @@ const getRoom = catchAsyncError(async (req, res, next) => {
   }
   res.status(200).json({ success: true, room })
 })
+
 // Create new room   =>   /api/rooms
 const createRoom = catchAsyncError(async (req, res) => {
   //console.log('requset:',req.body)

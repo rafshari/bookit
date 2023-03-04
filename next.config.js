@@ -9,7 +9,7 @@ const nextConfig = {
     CLOUDINARY_API_KEY: '517861677599238',
     CLOUDINARY_APISECRET: '3f2a8OTskk-3gBKp7S_SX-OAxwQ',
 
-    NEXTAUTH_URL: 'http://127.0.0.1:3000',
+    NEXTAUTH_URL: 'http://localhost:3000',
     NEXTAUTH_SECRET: '68=UrQZkm2=nSKJMn5*P5qxqU=hrETtXAvzrL#hhjQyp?wE%Z',
     
     SMTP_HOST: 'sandbox.smtp.mailtrap.io',
@@ -19,10 +19,12 @@ const nextConfig = {
     SMTP_FROM_NAME: 'Bookit',
     SMTP_FROM_EMAIL: 'noreply@bootkit.com',
 
-    STRIPE_API_KEY:'pk_test_51MhFY5HykZY2WQaMq0hQpup2FCyTk2FFJnGXEfAPsDPEo5DoSNhi379On06vsnnYJY0rWSuGyylB8FqXQw4G4SF100UvYBboXj',
-      
-    STRIPE_SECRET_KEY:'sk_test_51MhFY5HykZY2WQaMxauvJJYYdjHrRkshXYpub8mdrnCTe5zunQiJR0aAC4nmLYc9d8nPm6QPCjbZ4x0mS3s3ad8O00iva5sTDW',
-STRIPE_WEBHOOK_SECRET: 'whsec_VNldn1kZxEJc1hYieeYYBP3rhkhKxbVL',
+    STRIPE_API_KEY:'pk_test_51MhWPKSIXSENGovq2ECA0fycIowPX9AOshe7oulApe3eNJpkWY2yIuXcH0EOfQPu4blvREI3nGYGytVOyJwCeUOt00QP5pWura',
+
+    
+    STRIPE_SECRET_KEY:'sk_test_51MhWPKSIXSENGovqrLMdPFfNIRpcFEmFKcGEYSiu4Q1CFy2DvAEvQT6dITyHe8VJG998vjwfNaNlbW7v8E8fsTr600IlJvY46L',
+    
+     STRIPE_WEBHOOK_SECRET: 'whsec_28f782caa59003e6c39a8e42426e8bff8115e5eb7159ed3ab7ce09656df2f147',
           
   },
   images: {

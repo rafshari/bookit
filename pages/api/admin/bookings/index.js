@@ -1,5 +1,5 @@
 import nc from 'next-connect'
-import dbConnect from 'config/dbConnect'
+import {dbConnect} from 'config/dbConnect'
 
 import { allAdminBookings } from 'controllers/bookingController'
 
