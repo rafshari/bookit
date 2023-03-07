@@ -60,6 +60,11 @@ const AllUsers = () => {
                     sort: 'asc'
                 },
                 {
+                    label: 'phoneNumber',
+                    field: 'phoneNumber',
+                    sort: 'asc'
+                },
+                {
                     label: 'Role',
                     field: 'role',
                     sort: 'asc'
@@ -79,6 +84,7 @@ const AllUsers = () => {
                 id: user._id,
                 name: user.name,
                 email: user.email,
+                phoneNumber:user.phoneNumber,
                 role: user.role,
                 actions:
                     <>

@@ -17,6 +17,7 @@ import { GET_USER_ADMIN, UPDATE_USER_ADMIN } from 'redux/constants/authConstant'
 const UpdateUser = () => {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
   const [role, setRole] = useState('')
 
   const dispatch = useDispatch()
@@ -33,6 +34,7 @@ const UpdateUser = () => {
     } else {
       setName(userDetails.name)
       setEmail(userDetails.email)
+      setPhoneNumber(userDetails.phoneNumber)
       setRole(userDetails.role)
     }
     if (error) {
@@ -90,6 +92,17 @@ const UpdateUser = () => {
                     name='email'
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div className='form-group'>
+                  <label htmlFor='phoneNumber_field'>Phone Number</label>
+                  <input
+                    type='text'
+                    id='phoneNumber_field'
+                    className='form-control'
+                    name='phoneNumber'
+                    value={phoneNumber}
+                    onChange={(e) => setPhoneNumber(e.target.value)}
                   />
                 </div>
 

@@ -21,8 +21,12 @@ const AllBookings = () => {
   const dispatch = useDispatch()
   const router = useRouter()
 
-  const { loader, error, bookings  } = useSelector((state) => state.booking)
-  const { isDeleted, error: deleteError, loader: deleteLoading } = useSelector((state) => state.booking.deleteBooking )
+  const { loader, error, bookings } = useSelector((state) => state.booking)
+  const {
+    isDeleted,
+    error: deleteError,
+    loader: deleteLoading,
+  } = useSelector((state) => state.booking.deleteBooking)
 
   useEffect(() => {
     dispatch(getAdminBookings())
@@ -82,9 +86,12 @@ const AllBookings = () => {
           amount: `$${booking.amountPaid}`,
           actions: (
             <>
-              <Link href={`/admin/bookings/${booking._id}`} className='btn btn-primary'>
-                 <i className='fa fa-eye'></i>
-               </Link>
+              <Link
+                href={`/admin/bookings/${booking._id}`}
+                className='btn btn-primary'
+              >
+                <i className='fa fa-eye'></i>
+              </Link>
 
               <button
                 className='btn btn-success mx-2'

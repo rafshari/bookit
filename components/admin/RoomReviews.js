@@ -102,7 +102,7 @@ const RoomReviews = () => {
                         <div className="form-group">
                             <label htmlFor="roomId_field">Enter Room ID</label>
                             <input
-                                type="number"
+                                type="email"
                                 id="roomId_field"
                                 className="form-control"
                                 value={roomId}

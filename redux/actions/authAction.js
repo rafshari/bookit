@@ -7,8 +7,8 @@ import {
   GET_USER_ADMIN,
   REGISTER_USER,
   RESET_PASSWORD,
-  UPDATE_USER,
   UPDATE_USER_ADMIN,
+  UPDATE_USER_PROFILE,
   CLEAR_ERRORS,
 
 } from 'redux/constants/authConstant'
@@ -24,9 +24,12 @@ export const registerAction = (data) => {
           'Content-Type': 'application/json',
         },
       }
-      console.log(data)
       const response = await axios.post('/api/auth/register', data, config)
-      dispatch({ type: REGISTER_USER.success, payload: response.data })
+      console.log(response)
+      dispatch({
+         type: REGISTER_USER.success,
+          payload: response.data.success 
+        })
     } catch (error) {
       dispatch({
         type: REGISTER_USER.failed,
@@ -71,32 +74,33 @@ export const getUserDetails = () => {
     } catch (error) {
       dispatch({
         type: GET_USER.failed,
-        payload: error.response.data.message,
+        payload: error.response?.data.message,
       })
     }
   }
 }
-// UPDATE USER by user
-export const updateUserDetail = (data) => {
+// UPDATE USER Profile by user
+export const updateUserProfile = (Data) => {
   return async (dispatch, getState) => {
+    dispatch({
+      type: UPDATE_USER_PROFILE.pending,
+    })
+    const config = {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    }
     try {
+      const { data } = await axios.put('/api/me/update', Data, config)
+      console.log('2:', data)
       dispatch({
-        type: UPDATE_USER.pending,
-      })
-      const config = {
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      }
-      const { data } = await axios.put('/api/me/update', data, config)
-      dispatch({
-        type: UPDATE_USER.success,
-        payload: data.success,
+        type: UPDATE_USER_PROFILE.success,
+        payload: data
       })
     } catch (error) {
       dispatch({
-        type: UPDATE_USER.failed,
-        payload: error.response.data.message,
+        type: UPDATE_USER_PROFILE.failed,
+        payload: error.response?.data.message,
       })
     }
   }
@@ -124,7 +128,7 @@ export const updateUserAdmin = (id, userData) => async (dispatch) => {
 
       dispatch({
           type: UPDATE_USER_ADMIN.failed,
-          payload: error.response.data.message
+          payload: error.response?.data.message
       })
   }
 }

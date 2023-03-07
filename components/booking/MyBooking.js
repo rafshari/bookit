@@ -65,6 +65,7 @@ export default function MyBooking ()  {
             client: {
                 company: `${booking.user.name}`,
                 address: `${booking.user.email}`,
+                phoneNumber: `${booking.user.phoneNumber}`,
                 zip: '',
                 city: `Check In: ${new Date(booking.checkInDate).toLocaleString('en-US')}`,
                 country: `Check In: ${new Date(booking.checkOutDate).toLocaleString('en-US')}`,

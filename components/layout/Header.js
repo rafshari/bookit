@@ -14,7 +14,7 @@ export default function Header() {
     if (!Object.keys(user).length) {
       dispatch(getUserDetails())
     }
-  }, [dispatch, user])
+  }, [dispatch, user]) 
   const renderLoginOrAvatar = () => {
     if (!loader.includes(GET_USER.pending) && Object.keys(user).length  ) {
       return (

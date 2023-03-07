@@ -20,11 +20,12 @@ export const registerUser = catchAsyncError(async (req, res) => {
         crop: 'scale',
     });
 
-    const { email, password, name } = req.body;
+    const {name, email, phoneNumber, password  } = req.body;
 
     const user = await User.create({
         name,
         email,
+        phoneNumber,
         password,
         avatar: {
             public_id: result.public_id,
@@ -33,6 +34,7 @@ export const registerUser = catchAsyncError(async (req, res) => {
     });
     res.status(200).json({ success: true, message: 'User registered successfully' });
 });
+
 // GET CURRENT USER   => /api/me
 export const currentUser = catchAsyncError(async (req, res) => {
     const user = await User.findById(req.user._id);
@@ -41,6 +43,7 @@ export const currentUser = catchAsyncError(async (req, res) => {
         user,
     });
 });
+
 // GET user details by ADMIN  =>   /api/admin/users/:id
 export const getUserDetails = catchAsyncError(async (req, res) => {
 
@@ -59,12 +62,18 @@ export const getUserDetails = catchAsyncError(async (req, res) => {
 
 // Update user profile   =>   /api/me/update
 export const updateProfile = catchAsyncError(async (req, res) => {
-
+    
+    console.log('1:', req.user)
+    try {
+        
+    } catch (error) {
+        
+    }
     const user = await User.findById(req.user._id);
-
     if (user) {
         user.name = req.body.name;
         user.email = req.body.email;
+        user.phoneNumber = req.body.phoneNumber;
 
         if (req.body.password) user.password = req.body.password;
     }
@@ -104,6 +113,7 @@ export const updateUser = catchAsyncError(async (req, res) => {
     const newUserData = {
         name: req.body.name,
         email: req.body.email,
+        phoneNumber: req.body.phoneNumber,
         role: req.body.role,
     }
 

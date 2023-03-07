@@ -2,16 +2,17 @@ import {
     ALL_USERS,
     DELETE_USER,
     GET_USER,
-    GET_USER_ADMIN,
-    UPDATE_USER,
+    UPDATE_USER_PROFILE,
     UPDATE_USER_ADMIN,
+    GET_USER_ADMIN,
     REGISTER_USER,
     RESET_PASSWORD,
     FORGOT_PASSWORD,
+    CLEAR_ERRORS,
 } from 'redux/constants/authConstant'
 
 const intialState = {
-  success: {},
+  success: false,
   loader: [],
   error: '',
   user: {},
@@ -19,7 +20,8 @@ const intialState = {
   isAuthenticated: false,
   forgotPasswordMessage: '',
   resetPasswordMessage: '',
-  userUpdate: { loading: false, error: '', isUpdated: false },
+  updateUser: false,
+  userUpdate:{isUpdated: false, loading:false, error:''},
   userDelete: { isDeleted: false, error: '' },
   users: [],
 }
@@ -27,12 +29,13 @@ const intialState = {
 const authReducer = (state = intialState, action) => {
   const newState = { ...state }
   switch (action.type) {
+
+    // Register User
     case REGISTER_USER.pending: {
       newState.loader = [...newState.loader, REGISTER_USER.pending]
       newState.error = ''
       return newState
     }
-
     case REGISTER_USER.success: {
       newState.loader = newState.loader.filter(
         (el) => el !== REGISTER_USER.pending
@@ -40,7 +43,6 @@ const authReducer = (state = intialState, action) => {
       newState.success = action.payload
       return newState
     }
-
     case REGISTER_USER.failed: {
       newState.loader = newState.loader.filter(
         (el) => el !== REGISTER_USER.pending
@@ -49,22 +51,47 @@ const authReducer = (state = intialState, action) => {
       return newState
     }
 
-
+      //  UPDATE User Profile
+      case UPDATE_USER_PROFILE.pending: {
+        newState.loader =  [...newState.loader, UPDATE_USER_PROFILE.pending]
+        newState.error = ''
+        return newState
+      }
+  
+      case UPDATE_USER_PROFILE.success: {
+        newState.loader = newState.loader.filter(
+        (el) => el !== UPDATE_USER_PROFILE.pending
+      )
+      newState.updateUser =  action.payload
+      return newState
+      }
+  
+      case UPDATE_USER_PROFILE.failed: {
+        newState.loader = newState.loader.filter(
+          (el) => el !== UPDATE_USER_PROFILE.pending
+        )
+        newState.error = action.payload
+        return newState
+      }
+      case UPDATE_USER_PROFILE.reset: {
+        newState.updateUser = false
+        return newState
+      }
       //  UPDATE USER  by ADMIN
       case UPDATE_USER_ADMIN.pending: {
-        newState.userUpdate.loader = true
+        newState.userUpdate.loading = true
         newState.userUpdate.error = ''
         return newState
       }
   
       case UPDATE_USER_ADMIN.success: {
-        newState.userUpdate.loader = false
+        newState.userUpdate.loading = false
         newState.userUpdate.isUpdated = action.payload
         return newState
       }
   
       case UPDATE_USER_ADMIN.failed: {
-        newState.userUpdate.loader = false
+        newState.userUpdate.loading = false
         newState.userUpdate.error = action.payload
         return newState
       }
@@ -88,7 +115,6 @@ const authReducer = (state = intialState, action) => {
 
     case GET_USER.failed: {
       newState.loader = newState.loader.filter((el) => el !== GET_USER.pending)
-      newState.error = action.payload
       return newState
     }
     // GET USER by ADMIN

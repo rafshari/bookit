@@ -6,7 +6,7 @@ import React from 'react';
 export default function UpdateProfilePage ()  {
     return (
         <>
-            <Layout title='update profiel'>
+            <Layout title='update profile'>
                 <Profile />
             </Layout>
         </>
