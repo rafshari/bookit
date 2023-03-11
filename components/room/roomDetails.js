@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Head from "next/head";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import { useDispatch, useSelector } from "react-redux";
+import Head from "next/head";
+import Image from "next/image";
 import { Carousel } from "react-bootstrap";
 import RoomFeature from "./RoomFeature";
 import DatePicker from "react-datepicker";
@@ -109,7 +109,7 @@ export default function RoomDetail  ()  {
   return (
     <>
       <Head>
-        <title>{roomDetail.name} - bookit</title>
+        <title>{roomDetail.name} - bookIT</title>
       </Head>
       <div className="container container-fluid">
         <h2 className="mt-5">{roomDetail.name}</h2>

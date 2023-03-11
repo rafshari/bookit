@@ -3,14 +3,21 @@ import Link from 'next/link';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
 import { MDBDataTable } from 'mdbreact';
-import { getMyBookings } from 'redux/actions/bookingAction';
+import { clearErrors, getMyBookings } from 'redux/actions/bookingAction';
 import easyinvoice from 'easyinvoice';
 
-export default function MyBooking ()  {
+const MyBooking = () => {
     const dispatch = useDispatch();
-    const { myBookings } = useSelector((state) => state.booking);
+    const {  loader, error, myBookings } = useSelector((state) => state.booking);
+
     useEffect(() => {
-        dispatch(getMyBookings());
+        console.log(myBookings)
+        dispatch(getMyBookings())
+        if (error) {
+            toast.error(error)
+            dispatch(clearErrors())
+          }
+
     }, []);
 
     const setBooking = () => {
@@ -96,3 +103,4 @@ export default function MyBooking ()  {
     );
 };
 
+export default MyBooking

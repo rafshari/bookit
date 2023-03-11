@@ -1,8 +1,8 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose'
 
-const dbConnect = () => {
+export const dbConnect = () => {
   if (mongoose.connection.readyState >= 1) {
-    return;
+    return
   }
 
   mongoose
@@ -11,8 +11,6 @@ const dbConnect = () => {
       useUnifiedTopology: true,
     })
     .then(() => {
-      console.log("Connected to database");
-    });
-};
-
-export { dbConnect };
+      console.log('Connected to database')
+    })
+}

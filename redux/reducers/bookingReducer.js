@@ -27,12 +27,11 @@ const bookingReducer = (state = initialState, action) => {
   const newState = { ...state }
   switch (action.type) {
 
- //   ROOM AVAILABILIT
+ //   ROOM AVAILABILITY
     case ROOM_AVAILABILITY.pending: {
       newState.loader = [...newState.loader, ROOM_AVAILABILITY.pending]
       return newState
     }
-
     case ROOM_AVAILABILITY.success: {
       newState.loader = newState.loader.filter(
         (el) => el !== ROOM_AVAILABILITY.pending
@@ -40,6 +39,7 @@ const bookingReducer = (state = initialState, action) => {
       newState.roomAvailability = action.payload
       return newState
     }
+
 // Booked Dates
     case BOOKED_DATES.pending: {
       newState.loader = [...newState.loader, BOOKED_DATES.pending]
@@ -53,12 +53,12 @@ const bookingReducer = (state = initialState, action) => {
        newState.bookedDates = action.payload
        return newState
     }
+
 // My Bookings list    
     case MY_BOOKINGS.pending: {
       newState.loader = [...newState.loader, MY_BOOKINGS.pending]
       return newState
     }
-
     case MY_BOOKINGS.success: {
       newState.loader = newState.loader.filter(
         (el) => el !== MY_BOOKINGS.pending
@@ -66,19 +66,18 @@ const bookingReducer = (state = initialState, action) => {
       newState.myBookings = action.payload
       return newState
     }
-
     case MY_BOOKINGS.failed: {
       newState.loader = newState.loader.filter(
         (el) => el !== MY_BOOKINGS.pending
       )
       return newState
     }
+
 // My Bookings Details
     case MY_BOOKING_DETAILS.pending: {
       newState.loader = [...newState.loader, MY_BOOKING_DETAILS.pending]
       return newState
     }
-
     case MY_BOOKING_DETAILS.success: {
       newState.loader = newState.loader.filter(
         (el) => el !== MY_BOOKING_DETAILS.pending
@@ -86,7 +85,6 @@ const bookingReducer = (state = initialState, action) => {
       newState.myBookingDetails = action.payload
       return newState
     }
-
     case MY_BOOKING_DETAILS.failed: {
       newState.loader = newState.loader.filter(
         (el) => el !== MY_BOOKING_DETAILS.pending
@@ -94,37 +92,18 @@ const bookingReducer = (state = initialState, action) => {
       return newState
     }
 
-    // BOOKING DETAILS ADMIN
-      case BOOKING_DETAILS_ADMIN.pending: {
-      newState.loader = [...newState.loader, BOOKING_DETAILS_ADMIN.pending]
-      return newState
-    }
 
-    case BOOKING_DETAILS_ADMIN.success: {
-      newState.loader = newState.loader.filter(
-        (el) => el !== BOOKING_DETAILS_ADMIN.pending
-      )
-      newState.BookingDetails = action.payload
-      return newState
-    }
-
-    case BOOKING_DETAILS_ADMIN.failed: {
-      newState.loader = newState.loader.filter(
-        (el) => el !== BOOKING_DETAILS_ADMIN.pending
-      )
-      return newState
-    }
 //
     case RESET_CHECK_BOOKING: {
       newState.roomAvailability = null
       return newState
     }
-
+  
+// CREATE NEW REVIEW
     case CREATE_NEW_REVIEW.pending: {
       newState.loader = [...newState.loader, CREATE_NEW_REVIEW.pending]
       return newState
     }
-
     case CREATE_NEW_REVIEW.success: {
       newState.loader = newState.loader.filter(
         (el) => el !== CREATE_NEW_REVIEW.pending
@@ -132,7 +111,7 @@ const bookingReducer = (state = initialState, action) => {
       return newState
     }
 
-    // ALL BOOKINGS
+    // BOOKINGS List Admin
     case ALL_BOOKINGS.pending: {
       newState.loader = [...newState.loader, ALL_BOOKINGS.pending]
       return newState
@@ -153,7 +132,26 @@ const bookingReducer = (state = initialState, action) => {
       newState.error = action.payload
       return newState
     }
-    // Delete Bookings
+
+        // BOOKING DETAILS ADMIN
+        case BOOKING_DETAILS_ADMIN.pending: {
+          newState.loader = [...newState.loader, BOOKING_DETAILS_ADMIN.pending]
+          return newState
+        }
+        case BOOKING_DETAILS_ADMIN.success: {
+          newState.loader = newState.loader.filter(
+            (el) => el !== BOOKING_DETAILS_ADMIN.pending
+          )
+          newState.BookingDetails = action.payload
+          return newState
+        }
+        case BOOKING_DETAILS_ADMIN.failed: {
+          newState.loader = newState.loader.filter(
+            (el) => el !== BOOKING_DETAILS_ADMIN.pending
+          )
+          return newState
+        }
+    // Delete Bookings ADMIN
     case DELETE_BOOKING.pending: {
       newState.deleteBooking.loader = true
       return newState

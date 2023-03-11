@@ -1,7 +1,7 @@
 import React from 'react'
 import { getSession } from 'next-auth/react'
 
-import AllUsers from 'components/admin/AllUsers'
+import AllUsers from '@/components/admin/AllUsers0'
 import Layout from 'components/layout/Layout'
 
 const AllUsersPage = () => {

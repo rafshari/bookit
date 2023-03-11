@@ -1,0 +1,174 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookit
+spec:
+  selector:
+    matchLabels:
+      app: bookit
+  template:
+    metadata:
+      labels:
+        app: bookit
+    spec:
+      containers:
+      - name: bookit
+        image: rafshari/bookit:v1.0.0
+        resources:
+          limits:
+            memory: 100M
+            ephemeral-storage: 0.1G
+            cpu: 100m
+          requests:
+            memory: 100M
+            ephemeral-storage: 0.1G
+            cpu: 100m
+        ports:
+        - containerPort: 3000
+          name: server-port
+ 
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: bookit
+spec:
+  ports:
+  - port: 3000
+    protocol: TCP
+    targetPort: 3000
+    name: appport
+  selector:
+    app: bookit
+  type: ClusterIP
+
+---
+[5---
+apiVersion: route.openshift.io/v1
+kind: Route 
+metadata: 
+  name: eshop-route
+  namespace: eshop
+spec:
+  host: eshop-client-eshop.apps.ir-thr-ba1.arvan.run
+  port: 
+    targetPort: http
+  tls: 
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge 
+  to: 
+    kind: service 
+    name: eshop-client
+---
+apiVersion: route.openshift.io/v1
+kind: Route 
+metadata: 
+  name: eshop-route-client
+  namespace: eshop
+spec:
+  host: eshop-client-eshop.apps.ir-thr-ba1.arvan.run
+  port: 
+    targetPort: http
+  tls: 
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge 
+  to: 
+    kind: service 
+    name: eshop-client
+
+---
+apiVersion: route.openshift.io/v1
+kind: Route 
+metadata: 
+  name: eshop-route-server
+  namespace: eshop
+spec:
+  host: eshopserver-eshop.apps.ir-thr-ba1.arvan.run
+  port: 
+    targetPort: apiport
+  tls: 
+    insecureEdgeTerminationPolicy: Redirect
+    termination: edge 
+  to: 
+    kind: service 
+    name: eshop-server
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: imagespvc
+spec:
+  resources:
+    requests:
+      storage: 1G
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteOnce
+
+
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mongodb-pvc
+  namespace: eshop
+spec:
+   accessModes:
+   - ReadWriteOnce
+   resources:
+    requests:
+     storage: 1G
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongodb-deployment
+spec: 
+  replicas: 1
+  template:
+    metadata:
+     labels: 
+       app: mongodb
+    spec:
+      containers:
+       - name: mongodb
+         resources: 
+           limits: 
+            cpu: 1000m
+            ephemeral-storage: 1G
+            memory: 100M
+           requests: 
+            cpu: 1000m
+            ephemeral-storage: 1G
+            memory: 100M
+         image: mongo:4.0.4
+         ports: 
+           - containerPort: 27017
+             name: mongodb-port
+         volumeMounts: 
+          - mountPath: /data/db
+            name: mongodb-pvc
+      volumes: 
+        - name: mongodb-pvc
+          PersistentVolumeClaim:
+           claimName: mongodb-pvc
+  selector:
+    matchLabels:
+     app: mongodb
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-service
+spec:
+   ports: 
+    - port: 27017
+      protocol: TCP
+   selector:
+     app: mongodb
+     type: ClusterIp
+    
+---

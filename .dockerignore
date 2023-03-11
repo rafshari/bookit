@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+Dockerfile
+.dockerignore
+Data
+
+commands
+README.md
+.next
+.git
+.results
+scripts
+*Dockerfile*
+.env

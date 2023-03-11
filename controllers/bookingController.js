@@ -17,8 +17,8 @@ export const createBooking = catchAsyncError(async (req, res) => {
     paymentInfo,
   } = req.body
   const booking = await Booking.create({
-    user: req.user._id,
     room,
+    user: req.user._id,
     checkInDate,
     checkOutDate,
     daysOfStay,
@@ -90,10 +90,12 @@ export const checkBookedDates = catchAsyncError(async (req, res) => {
 
 // Get My bookings List   =>   /api/bookings/me
 export const getMyBookings = catchAsyncError(async (req, res) => {
-  const bookings = await Booking.find({
-    user:  req.user
-  })
-    .populate({
+ // console.log('ttt',req.user._id)
+  console.log('fff',req.user)
+
+  const bookings = await Booking.find({user: req.user._id
+ 
+     }).populate({
       path: 'room',
       select: 'name pricePerNight images',
     })
@@ -101,30 +103,14 @@ export const getMyBookings = catchAsyncError(async (req, res) => {
       path: 'user',
       select: 'name email',
     })
+
   res.status(200).json({
     success: true,
     bookings,
+    
   })
+  console.log('ggg',bookings)
 })
-
-// Get My booking details   =>   /api/bookings/:id
-export const getMyBookingDetail = catchAsyncError(async (req, res) => {
-  const booking = await Booking.findById(req.query.id)
-    .populate({
-      path: 'room',
-      select: 'name pricePerNight images',
-    })
-    .populate({
-      path: 'user',
-      select: 'name email',
-    })
-
-  res.status(200).json({
-    success: true,
-    booking,
-  })
-})
-
 // Get all bookings - ADMIN   =>   /api/admin/bookings
 export const allAdminBookings = catchAsyncError(async (req, res) => {
   const bookings = await Booking.find()
@@ -139,10 +125,26 @@ export const allAdminBookings = catchAsyncError(async (req, res) => {
     if (!bookings) {
       return next(new ErrorHandler('Bookings not found', 400))
     }
-
   res.status(200).json({
     success: true,
     bookings,
+  })
+})
+// Get My booking details   =>   /api/bookings/:id
+export const getMyBookingDetail = catchAsyncError(async (req, res) => {
+  const booking = await Booking.findById(req.query.id)
+    .populate({
+      path: 'room',
+      select: 'name pricePerNight images',
+    })
+    .populate({
+      path: 'user',
+      select: 'name email phoneNumber',
+    })
+
+  res.status(200).json({
+    success: true,
+    booking,
   })
 })
 

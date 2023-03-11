@@ -5,6 +5,8 @@ const nextConfig = {
     DB_LOCAL_URI: 'mongodb://127.0.0.1:27017/bookittest',
     DB_URI: 'mongodb+srv://roozbeh123:roozbeh123@cluster0.skexl.mongodb.net/bookit?retryWrites=true&w=majority',
     
+
+
     CLOUDINARY_CLOUD_NAME: 'dxb4gek9t',
     CLOUDINARY_API_KEY: '517861677599238',
     CLOUDINARY_APISECRET: '3f2a8OTskk-3gBKp7S_SX-OAxwQ',

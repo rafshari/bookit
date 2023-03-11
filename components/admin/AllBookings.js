@@ -1,15 +1,11 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-
 import { MDBDataTable } from 'mdbreact'
 import easyinvoice from 'easyinvoice'
-
 import Loader from '../layout/Loader'
-
 import { useDispatch, useSelector } from 'react-redux'
 import { toast } from 'react-toastify'
-
 import {
   getAdminBookings,
   deleteBooking,
@@ -54,6 +50,12 @@ const AllBookings = () => {
           sort: 'asc',
         },
         {
+          label: 'User Name',
+          field: 'name',
+          sort: 'asc',
+        },
+     
+        {
           label: 'Check In',
           field: 'checkIn',
           sort: 'asc',
@@ -81,6 +83,7 @@ const AllBookings = () => {
       bookings.forEach((booking) => {
         data.rows.push({
           id: booking._id,
+          name: booking.user.name,
           checkIn: new Date(booking.checkInDate).toLocaleString('en-US'),
           checkOut: new Date(booking.checkOutDate).toLocaleString('en-US'),
           amount: `$${booking.amountPaid}`,

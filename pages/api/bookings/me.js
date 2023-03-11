@@ -1,15 +1,15 @@
-import nc from 'next-connect';
-import onError from 'middlewares/errorMiddleware';
-import { dbConnect } from 'config/dbConnect';
-import { getMyBookings } from 'controllers/bookingController';
-import { isAuthenticatedUser } from 'middlewares/auth';
+import nc from 'next-connect'
+import { dbConnect } from 'config/dbConnect'
+import onError from 'middlewares/errorMiddleware'
+import { getMyBookings } from 'controllers/bookingController'
+import { isAuthenticatedUser } from 'middlewares/auth'
 
-dbConnect();
+dbConnect()
 
 const handler = nc({
-    onError,
-});
+  onError,
+})
 
-handler.use(isAuthenticatedUser).get(getMyBookings);
+handler.use(isAuthenticatedUser).get(getMyBookings)
 
-export default handler;
+export default handler

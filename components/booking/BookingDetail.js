@@ -22,9 +22,12 @@ export default function BookingDetail  ()  {
                         <div className='col-12 col-lg-8 mt-5 booking-details'>
                             <h2 className='my-5'>Booking # {myBookingDetails?._id}</h2>
 
-                            <h4 className='mb-4'>User Info</h4>
+                            <h4 className='mb-4'>User Info: </h4>
                             <p>
                                 <b>Name:</b> {myBookingDetails?.user?.name}
+                            </p>
+                            <p>
+                                <b>phone Number:</b> {myBookingDetails?.user?.phoneNumber}
                             </p>
                             <p>
                                 <b>Email:</b> {myBookingDetails?.user?.email}
