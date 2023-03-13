@@ -12,3 +12,7 @@ README.md
 scripts
 *Dockerfile*
 .env
+docker-compose.production.yml
+docker-compose.yml
+
+k8s.yml

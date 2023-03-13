@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bookit
+spec:
+  selector:
+    matchLabels:
+      app: bookit
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: bookit
+    spec:
+      containers:
+      - name: bookit
+        image: rafshari/bookit:v1.0.0
+        ports:
+        - containerPort: 3000
+ 
