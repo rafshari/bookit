@@ -1,6 +1,6 @@
 import React from 'react'
 import Layout from 'components/layout/Layout'
-import RoomDetail from 'components/room/RoomDetails'
+import RoomDetail from '../../components/room/RoomDetails'
 import { wrapper } from 'redux/store'
 import { getRoom } from 'redux/actions/roomAction'
 
