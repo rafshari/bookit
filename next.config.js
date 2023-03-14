@@ -1,6 +1,11 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  /** @type {import('next').NextConfig} */
+
+  swcMinify: true,
+  output: "standalone",
+
   env: {
     DB_LOCAL_URI: 'mongodb://127.0.0.1:27017/bookittest',
     DB_URI: 'mongodb+srv://roozbeh123:roozbeh123@cluster0.skexl.mongodb.net/bookit?retryWrites=true&w=majority',

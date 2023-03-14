@@ -1,8 +1,7 @@
-node_modules
-npm-debug.log
 Dockerfile
 .dockerignore
-Data
+node_modules
+npm-debug.log
 
 commands
 README.md
@@ -10,7 +9,6 @@ README.md
 .git
 .results
 scripts
-*Dockerfile*
 .env
 docker-compose.production.yml
 docker-compose.yml

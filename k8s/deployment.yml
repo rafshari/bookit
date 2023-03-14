@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: bookit
-        image: rafshari/bookit:v1.0.0
+        image: rafshari/bookit:v2.0.0
         ports:
         - containerPort: 3000
  
