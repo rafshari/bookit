@@ -34,3 +34,7 @@ yarn-error.log*
 k8s
 docker-compose.production.yml
 docker-compose.yml
+
+
+
+next.config

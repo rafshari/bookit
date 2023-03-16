@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-//import timeZone from 'mongoose-timezone';
+import timeZone from 'moment-timezone'
+
 const bookingSchema = new mongoose.Schema({
     room: {
         type: mongoose.Schema.Types.ObjectId,
@@ -47,6 +48,6 @@ const bookingSchema = new mongoose.Schema({
     },
 });
 
-//bookingSchema.plugin(timeZone)
+bookingSchema.plugin(timeZone)
 
 export default mongoose?.models?.Booking || mongoose.model('Booking', bookingSchema);
