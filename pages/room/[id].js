@@ -5,11 +5,11 @@ import RoomDetail from 'components/room/RoomDetail'
 
 const RoomPage = () => {
   return (
-    <>
+  
       <Layout>
         <RoomDetail />
       </Layout>
-    </>
+    
   )
 }
 
