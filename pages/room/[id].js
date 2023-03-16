@@ -1,10 +1,9 @@
-import React from 'react'
 import Layout from 'components/layout/Layout'
-import RoomDetail from '../../components/room/RoomDetail'
 import { wrapper } from 'redux/store'
 import { getRoom } from 'redux/actions/roomAction'
+import RoomDetail from 'components/room/RoomDetail'
 
-export default function RoomPage() {
+const RoomPage = () => {
   return (
     <>
       <Layout>
@@ -20,3 +19,5 @@ export const getServerSideProps = wrapper.getServerSideProps(
       await store.dispatch(getRoom(req, params.id))
     }
 )
+
+export default RoomPage
