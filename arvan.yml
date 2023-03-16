@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: bookit
-        image: rafshari/bookit:v1.0.0
+        image: rafshari/bookit:v3.0.2
         resources:
           limits:
             memory: 100M
@@ -37,7 +37,7 @@ spec:
   - port: 3000
     protocol: TCP
     targetPort: 3000
-    name: app-port
+    name: nextport
   selector:
     app: bookit
   type: ClusterIP
@@ -51,7 +51,7 @@ metadata:
 spec:
   host: bookit-eshop.apps.ir-thr-ba1.arvan.run
   port:
-    targetPort: 30000
+    targetPort: http
   tls: 
     insecureEdgeTerminationPolicy: Redirect
     termination: edge 

@@ -6,7 +6,7 @@ services:
     build:
       dockerfile: Dockerfile
     ports:
-      - 3000:3000
+      - 3000:80
       
 
 
@@ -18,3 +18,14 @@ services:
 #     build: .
 #     ports:
 #       - 3000:3000
+
+
+
+# version: "3.9"
+
+# services:
+#   # this service should use the web image after you build it
+#   web:
+#     image: next-nginx:dev
+#     ports:
+#       - "3000:80"

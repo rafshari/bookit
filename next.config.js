@@ -3,7 +3,6 @@ const nextConfig = {
   reactStrictMode: false,
   /** @type {import('next').NextConfig} */
 
-  swcMinify: true,
   output: "standalone",
 
   env: {

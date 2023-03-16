@@ -14,3 +14,4 @@ docker-compose.production.yml
 docker-compose.yml
 
 k8s.yml
+nginx/
