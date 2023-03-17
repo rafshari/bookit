@@ -24,14 +24,11 @@ const nextConfig = {
     SMTP_FROM_NAME: 'Bookit',
     SMTP_FROM_EMAIL: 'noreply@bootkit.com',
 
-    STRIPE_API_KEY:
-      'pk_test_51MhWPKSIXSENGovq2ECA0fycIowPX9AOshe7oulApe3eNJpkWY2yIuXcH0EOfQPu4blvREI3nGYGytVOyJwCeUOt00QP5pWura',
+    STRIPE_API_KEY: 'pk_test_51MhWPKSIXSENGovq2ECA0fycIowPX9AOshe7oulApe3eNJpkWY2yIuXcH0EOfQPu4blvREI3nGYGytVOyJwCeUOt00QP5pWura',
 
-    STRIPE_SECRET_KEY:
-      'sk_test_51MhWPKSIXSENGovqrLMdPFfNIRpcFEmFKcGEYSiu4Q1CFy2DvAEvQT6dITyHe8VJG998vjwfNaNlbW7v8E8fsTr600IlJvY46L',
+    STRIPE_SECRET_KEY: 'sk_test_51MhWPKSIXSENGovqrLMdPFfNIRpcFEmFKcGEYSiu4Q1CFy2DvAEvQT6dITyHe8VJG998vjwfNaNlbW7v8E8fsTr600IlJvY46L',
 
-    STRIPE_WEBHOOK_SECRET:
-      'whsec_28f782caa59003e6c39a8e42426e8bff8115e5eb7159ed3ab7ce09656df2f147',
+    STRIPE_WEBHOOK_SECRET: 'whsec_28f782caa59003e6c39a8e42426e8bff8115e5eb7159ed3ab7ce09656df2f147',
   },
   images: {
     domains: ['res.cloudinary.com', 'images.unsplash.com'],
