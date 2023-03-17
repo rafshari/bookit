@@ -1,5 +1,6 @@
 Bookit
 A Hotel and Room Booking Application built with nextjs and deployed using vercel.com.
+Base of this Project was a Udemy course
 
 
 ![image](https://user-images.githubusercontent.com/102416116/225724630-73e7235e-1573-4d37-b709-38384cc17a6a.png)
