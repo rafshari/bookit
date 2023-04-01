@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
-import { signIn } from 'next-auth/react';
+import { Providers, signIn } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import ButtonLoader from 'components/layout/ButtonLoader';
 
@@ -42,7 +42,7 @@ export default function Login  ()  {
                                 <label htmlFor='password_field'>Password</label>
                                 <input type='password' id='password_field' className='form-control' value={password} onChange={(e) => setPassword(e.target.value)} />
                             </div>
-                            
+
                             <Link href='/password/forgot' className='float-right mb-4'>
                                  Forgot Password?
                             </Link>

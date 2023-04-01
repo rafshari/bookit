@@ -1,5 +1,6 @@
 import NextAuth from 'next-auth';
 import CredentialsProvider from 'next-auth/providers/credentials';
+import GoogleProvider from "next-auth/providers/google"
 import { dbConnect } from 'config/dbConnect';
 import User from 'models/user';
 import bcryptjs from 'bcryptjs';
@@ -30,7 +31,15 @@ export default NextAuth({
                 return Promise.resolve(user);
             },
         }),
+        GoogleProvider({
+            clientId: process.env.GOOGLE_ID,
+            clientSecret: process.env.GOOGLE_SECRET,
+          }),
+
     ],
+    pages:{
+signIn: '/login'
+    },
     callbacks: {
         jwt: async ({ user, token }) => {
             user && (token.user = user);

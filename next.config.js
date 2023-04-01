@@ -14,8 +14,14 @@ const nextConfig = {
     CLOUDINARY_API_KEY: '517861677599238',
     CLOUDINARY_APISECRET: '3f2a8OTskk-3gBKp7S_SX-OAxwQ',
 
-    NEXTAUTH_URL: 'http://localhost:3000',
+
+    //NEXTAUTH_URL: 'http://localhost:3000',
+    NEXTAUTH_URL: 'https://bookit-six.vercel.app/',
     NEXTAUTH_SECRET: '68=UrQZkm2=nSKJMn5*P5qxqU=hrETtXAvzrL#hhjQyp?wE%Z',
+
+    DATABASE_URL:'mongodb+srv://roozbeh123:roozbeh123@cluster0.skexl.mongodb.net/bookit?retryWrites=true&w=majority', 
+    GOOGLE_ID: '532281339946-m4ubnblu6sp9cgks01fa2kkgs8pl56o7.apps.googleusercontent.com',
+    GOOGLE_SECRET: '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',
 
     SMTP_HOST: 'sandbox.smtp.mailtrap.io',
     SMTP_PORT: '2525',

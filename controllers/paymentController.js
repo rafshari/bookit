@@ -8,10 +8,10 @@ import getrawBody from "raw-body";
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 
-// Generate stripe checkout session   =>   /api/checkout_session/:roomId
+// Generate stripe checkout session   =>  /api/checkout_session/:roomId
 export const stripeCheckOutSession = catchAsyncError(async (req, res) => {
 
-      // Get room details
+// Get room details
   const room = await Room.findById(req.query.roomId);
 console.log('backend1:',room)
 // Get origin
@@ -20,9 +20,9 @@ const { checkInDate, checkOutDate, daysOfStay } = req.query;
 console.log('backend2:',daysOfStay)
 console.log('backend3:',process.env.STRIPE_SECRET_KEY)
 var amount = Math.round(req.query.amount*100)
-      // Create stripe checkout session
+ // Create stripe checkout session
       try {
-  const session = await stripe.checkout.sessions.create({
+const session = await stripe.checkout.sessions.create({
     payment_method_types: ["card"],  
     mode:'payment',
     success_url: `${origin}/bookings/me`,
@@ -89,6 +89,6 @@ export const webhookCheckout = catchAsyncError(async (req, res) => {
     }
     res.status(200).json({ success: true });
   } catch (error) {
-    console.log("Error in stripe checkout payemnt", error);
+    console.log("Error in stripe checkout payement", error);
   }
 });
