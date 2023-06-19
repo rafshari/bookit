@@ -15,7 +15,7 @@ import {
 
 
 // REGISTER
-export const registerAction = (data) => {
+export const  registerAction = (data) => {
   return async (dispatch, getState) => {
     try {
       dispatch({ type: REGISTER_USER.pending })

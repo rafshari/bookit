@@ -1,4 +1,4 @@
-  import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 import ButtonLoader from '../layout/ButtonLoader'
@@ -61,7 +61,7 @@ const NewRoom = () => {
     }
     if (images.length === 0) return toast.error('Please upload images.')
 
-   console.log('اول:',roomData)
+   // console.log('اول:', roomData)
     dispatch(newRoom(roomData))
   }
 
@@ -286,7 +286,7 @@ const NewRoom = () => {
             <button
               type='submit'
               className='btn btn-block new-room-btn py-3'
-             disabled={loader.includes(NEW_ROOM.pending) ? true : false}
+              disabled={loader.includes(NEW_ROOM.pending) ? true : false}
             >
               {loader.includes(NEW_ROOM.pending) ? <ButtonLoader /> : 'CREATE'}
             </button>
